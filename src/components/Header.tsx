@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Code, Brain, BookOpen, User, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
+import LanguageSelector from "./LanguageSelector";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,15 +49,21 @@ const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              <User className="w-4 h-4 mr-2" />
-              Connexion
-            </Button>
-            <Button variant="hero" size="sm">
-              <BookOpen className="w-4 h-4 mr-2" />
-              Commencer
-            </Button>
+          <div className="hidden md:flex items-center space-x-3">
+            <ThemeToggle />
+            <LanguageSelector />
+            <Link to="/login">
+              <Button variant="ghost" size="sm">
+                <User className="w-4 h-4 mr-2" />
+                Connexion
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button variant="hero" size="sm">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Commencer
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,18 +90,26 @@ const Header = () => {
             <a href="#blog" className="block text-foreground hover:text-primary transition-base font-medium">
               Blog
             </a>
-            <a href="#contact" className="block text-foreground hover:text-primary transition-base font-medium">
+            <Link to="/contact" className="block text-foreground hover:text-primary transition-base font-medium">
               Contact
-            </a>
+            </Link>
             <div className="flex flex-col space-y-3 pt-4">
-              <Button variant="ghost" size="sm" className="justify-start">
-                <User className="w-4 h-4 mr-2" />
-                Connexion
-              </Button>
-              <Button variant="hero" size="sm" className="justify-start">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Commencer
-              </Button>
+              <div className="flex items-center justify-between mb-2">
+                <ThemeToggle />
+                <LanguageSelector />
+              </div>
+              <Link to="/login">
+                <Button variant="ghost" size="sm" className="justify-start w-full">
+                  <User className="w-4 h-4 mr-2" />
+                  Connexion
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button variant="hero" size="sm" className="justify-start w-full">
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Commencer
+                </Button>
+              </Link>
             </div>
           </nav>
         )}

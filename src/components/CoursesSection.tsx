@@ -1,55 +1,51 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Clock, Users, Star, Play, ArrowRight, BookOpen } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Clock, Users, Star, Play, ArrowRight, BookOpen, Filter, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
+import { allCourses, categories, levels, frameworks } from "@/data/courses";
 import reactCourse from "@/assets/react-course.jpg";
 import aiCourse from "@/assets/ai-course.jpg";
 import pythonCourse from "@/assets/python-course.jpg";
+import vueCourse from "@/assets/vue-course.jpg";
+import angularCourse from "@/assets/angular-course.jpg";
+import nodejsCourse from "@/assets/nodejs-course.jpg";
+import laravelCourse from "@/assets/laravel-course.jpg";
 
-const courses = [
-  {
-    id: 1,
-    title: "React & Next.js Masterclass",
-    category: "Framework",
-    level: "Intermédiaire",
-    duration: "12h",
-    students: "1,234",
-    rating: 4.9,
-    price: "199€",
-    originalPrice: "299€",
-    image: reactCourse,
-    description: "Maîtrisez React et Next.js avec des projets concrets et les meilleures pratiques.",
-    features: ["Hooks avancés", "SSR & SSG", "Optimisation", "Déploiement"]
-  },
-  {
-    id: 2,
-    title: "Machine Learning avec Python",
-    category: "Intelligence Artificielle",
-    level: "Débutant",
-    duration: "20h",
-    students: "892",
-    rating: 4.8,
-    price: "249€",
-    originalPrice: "349€",
-    image: aiCourse,
-    description: "Découvrez le Machine Learning de A à Z avec TensorFlow et scikit-learn.",
-    features: ["Algorithmes ML", "Deep Learning", "Projets réels", "Déploiement AI"]
-  },
-  {
-    id: 3,
-    title: "Python pour Data Science",
-    category: "Langage",
-    level: "Débutant",
-    duration: "15h",
-    students: "2,156",
-    rating: 4.9,
-    price: "179€",
-    originalPrice: "249€",
-    image: pythonCourse,
-    description: "Apprenez Python et les librairies essentielles pour la Data Science.",
-    features: ["Pandas & NumPy", "Visualisation", "APIs", "Automatisation"]
-  }
-];
+// Image mapping
+const imageMap: { [key: string]: string } = {
+  "/src/assets/react-course.jpg": reactCourse,
+  "/src/assets/ai-course.jpg": aiCourse,
+  "/src/assets/python-course.jpg": pythonCourse,
+  "/src/assets/vue-course.jpg": vueCourse,
+  "/src/assets/angular-course.jpg": angularCourse,
+  "/src/assets/nodejs-course.jpg": nodejsCourse,
+  "/src/assets/laravel-course.jpg": laravelCourse,
+};
 
 const CoursesSection = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Tous");
+  const [selectedLevel, setSelectedLevel] = useState("Tous");
+  const [selectedFramework, setSelectedFramework] = useState("Tous");
+  const [showAllCourses, setShowAllCourses] = useState(false);
+
+  // Filter courses based on search and filters
+  const filteredCourses = allCourses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         course.framework.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "Tous" || course.category === selectedCategory;
+    const matchesLevel = selectedLevel === "Tous" || course.level === selectedLevel;
+    const matchesFramework = selectedFramework === "Tous" || course.framework === selectedFramework;
+    
+    return matchesSearch && matchesCategory && matchesLevel && matchesFramework;
+  });
+
+  // Show only first 6 courses unless "show all" is clicked
+  const displayedCourses = showAllCourses ? filteredCourses : filteredCourses.slice(0, 6);
+
   return (
     <section id="cours" className="py-20 bg-muted/30">
       <div className="container mx-auto px-6">
@@ -69,14 +65,93 @@ const CoursesSection = () => {
           </p>
         </div>
 
+        {/* Search and Filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <div className="bg-card rounded-2xl p-6 shadow-card">
+            {/* Search Bar */}
+            <div className="relative mb-6">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input
+                placeholder="Rechercher un cours, framework ou technologie..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 h-12 text-lg"
+              />
+            </div>
+
+            {/* Filters */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Catégorie</label>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map(category => (
+                      <SelectItem key={category} value={category}>{category}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Niveau</label>
+                <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {levels.map(level => (
+                      <SelectItem key={level} value={level}>{level}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Framework</label>
+                <Select value={selectedFramework} onValueChange={setSelectedFramework}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {frameworks.map(framework => (
+                      <SelectItem key={framework} value={framework}>{framework}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Results Count */}
+            <div className="mt-4 text-sm text-muted-foreground">
+              {filteredCourses.length} cours trouvé{filteredCourses.length > 1 ? 's' : ''}
+            </div>
+          </div>
+        </motion.div>
+
         {/* Courses Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {courses.map((course) => (
-            <div key={course.id} className="group relative bg-card rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-smooth hover:-translate-y-2">
+          {displayedCourses.map((course, index) => (
+            <motion.div 
+              key={course.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group relative bg-card rounded-xl overflow-hidden shadow-card hover:shadow-hover transition-smooth hover:-translate-y-2"
+            >
               {/* Course Image */}
               <div className="relative overflow-hidden">
                 <img 
-                  src={course.image} 
+                  src={imageMap[course.image] || course.image} 
                   alt={course.title}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-smooth"
                 />
@@ -150,18 +225,51 @@ const CoursesSection = () => {
               <div className="absolute -top-2 -right-2 bg-warning text-warning-foreground px-3 py-1 rounded-full text-xs font-bold transform rotate-12">
                 -33%
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* View All Courses CTA */}
-        <div className="text-center">
-          <Button variant="outline" size="lg" className="bg-background">
-            <BookOpen className="w-5 h-5 mr-2" />
-            Voir tous les cours
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </div>
+        {!showAllCourses && filteredCourses.length > 6 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="bg-background"
+              onClick={() => setShowAllCourses(true)}
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Voir tous les cours ({filteredCourses.length - 6} de plus)
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </motion.div>
+        )}
+
+        {showAllCourses && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="bg-background"
+              onClick={() => setShowAllCourses(false)}
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Voir moins de cours
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

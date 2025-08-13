@@ -1,0 +1,338 @@
+export const allCourses = [
+  // Frontend Frameworks
+  {
+    id: 1,
+    title: "React & Next.js Masterclass",
+    category: "Frontend",
+    level: "Intermédiaire",
+    duration: "12h",
+    students: "1,234",
+    rating: 4.9,
+    price: "199€",
+    originalPrice: "299€",
+    image: "/src/assets/react-course.jpg",
+    description: "Maîtrisez React et Next.js avec des projets concrets et les meilleures pratiques.",
+    features: ["Hooks avancés", "SSR & SSG", "Optimisation", "Déploiement"],
+    framework: "React"
+  },
+  {
+    id: 2,
+    title: "Vue.js 3 Composition API",
+    category: "Frontend",
+    level: "Débutant",
+    duration: "10h",
+    students: "956",
+    rating: 4.8,
+    price: "179€",
+    originalPrice: "249€",
+    image: "/src/assets/vue-course.jpg",
+    description: "Découvrez Vue.js 3 et son ecosystem moderne avec la Composition API.",
+    features: ["Composition API", "Vue Router", "Pinia", "TypeScript"],
+    framework: "Vue.js"
+  },
+  {
+    id: 3,
+    title: "Angular 17 Enterprise",
+    category: "Frontend",
+    level: "Avancé",
+    duration: "18h",
+    students: "678",
+    rating: 4.7,
+    price: "249€",
+    originalPrice: "349€",
+    image: "/src/assets/angular-course.jpg",
+    description: "Maîtrisez Angular pour les applications enterprise avec les dernières fonctionnalités.",
+    features: ["Signals", "Standalone Components", "NgRx", "Testing"],
+    framework: "Angular"
+  },
+  {
+    id: 4,
+    title: "Svelte & SvelteKit",
+    category: "Frontend",
+    level: "Intermédiaire",
+    duration: "8h",
+    students: "423",
+    rating: 4.9,
+    price: "159€",
+    originalPrice: "219€",
+    image: "/src/assets/svelte-course.jpg",
+    description: "Développez des applications ultra-rapides avec Svelte et SvelteKit.",
+    features: ["Svelte Stores", "SvelteKit", "Animations", "SSR"],
+    framework: "Svelte"
+  },
+
+  // Backend Frameworks
+  {
+    id: 5,
+    title: "Node.js & Express Avancé",
+    category: "Backend",
+    level: "Intermédiaire",
+    duration: "15h",
+    students: "1,567",
+    rating: 4.8,
+    price: "199€",
+    originalPrice: "279€",
+    image: "/src/assets/nodejs-course.jpg",
+    description: "Créez des APIs robustes avec Node.js, Express et les meilleures pratiques.",
+    features: ["Express.js", "MongoDB", "Authentication", "Testing"],
+    framework: "Node.js"
+  },
+  {
+    id: 6,
+    title: "Laravel 10 Masterclass",
+    category: "Backend",
+    level: "Intermédiaire",
+    duration: "20h",
+    students: "1,234",
+    rating: 4.7,
+    price: "229€",
+    originalPrice: "319€",
+    image: "/src/assets/laravel-course.jpg",
+    description: "Maîtrisez Laravel pour créer des applications web modernes et sécurisées.",
+    features: ["Eloquent ORM", "Livewire", "API Resources", "Deployment"],
+    framework: "Laravel"
+  },
+  {
+    id: 7,
+    title: "Django REST Framework",
+    category: "Backend",
+    level: "Avancé",
+    duration: "16h",
+    students: "892",
+    rating: 4.8,
+    price: "209€",
+    originalPrice: "289€",
+    image: "/src/assets/django-course.jpg",
+    description: "Développez des APIs REST puissantes avec Django et Python.",
+    features: ["DRF", "Authentication", "Serializers", "Testing"],
+    framework: "Django"
+  },
+  {
+    id: 8,
+    title: "Spring Boot & Microservices",
+    category: "Backend",
+    level: "Avancé",
+    duration: "22h",
+    students: "756",
+    rating: 4.6,
+    price: "259€",
+    originalPrice: "359€",
+    image: "/src/assets/spring-course.jpg",
+    description: "Architectures microservices avec Spring Boot et l'écosystème Spring.",
+    features: ["Spring Security", "Spring Data", "Docker", "Kubernetes"],
+    framework: "Spring Boot"
+  },
+
+  // Langages de Programmation
+  {
+    id: 9,
+    title: "Python pour Data Science",
+    category: "Langage",
+    level: "Débutant",
+    duration: "15h",
+    students: "2,156",
+    rating: 4.9,
+    price: "179€",
+    originalPrice: "249€",
+    image: "/src/assets/python-course.jpg",
+    description: "Apprenez Python et les librairies essentielles pour la Data Science.",
+    features: ["Pandas & NumPy", "Visualisation", "APIs", "Automatisation"],
+    framework: "Python"
+  },
+  {
+    id: 10,
+    title: "JavaScript ES2024",
+    category: "Langage",
+    level: "Intermédiaire",
+    duration: "12h",
+    students: "1,890",
+    rating: 4.8,
+    price: "169€",
+    originalPrice: "229€",
+    image: "/src/assets/js-course.jpg",
+    description: "Maîtrisez JavaScript moderne et ses dernières fonctionnalités.",
+    features: ["ES2024", "Async/Await", "Modules", "Testing"],
+    framework: "JavaScript"
+  },
+  {
+    id: 11,
+    title: "TypeScript Avancé",
+    category: "Langage",
+    level: "Avancé",
+    duration: "14h",
+    students: "1,234",
+    rating: 4.9,
+    price: "189€",
+    originalPrice: "259€",
+    image: "/src/assets/ts-course.jpg",
+    description: "Exploitez toute la puissance de TypeScript pour des applications robustes.",
+    features: ["Types avancés", "Generics", "Decorators", "Modules"],
+    framework: "TypeScript"
+  },
+  {
+    id: 12,
+    title: "Rust Systèmes",
+    category: "Langage",
+    level: "Avancé",
+    duration: "18h",
+    students: "567",
+    rating: 4.7,
+    price: "239€",
+    originalPrice: "329€",
+    image: "/src/assets/rust-course.jpg",
+    description: "Programmation système sûre et performante avec Rust.",
+    features: ["Memory Safety", "Concurrency", "WebAssembly", "CLI Tools"],
+    framework: "Rust"
+  },
+
+  // Intelligence Artificielle
+  {
+    id: 13,
+    title: "Machine Learning avec Python",
+    category: "Intelligence Artificielle",
+    level: "Débutant",
+    duration: "20h",
+    students: "892",
+    rating: 4.8,
+    price: "249€",
+    originalPrice: "349€",
+    image: "/src/assets/ai-course.jpg",
+    description: "Découvrez le Machine Learning de A à Z avec TensorFlow et scikit-learn.",
+    features: ["Algorithmes ML", "Deep Learning", "Projets réels", "Déploiement AI"],
+    framework: "TensorFlow"
+  },
+  {
+    id: 14,
+    title: "Deep Learning avec PyTorch",
+    category: "Intelligence Artificielle",
+    level: "Avancé",
+    duration: "25h",
+    students: "645",
+    rating: 4.9,
+    price: "299€",
+    originalPrice: "399€",
+    image: "/src/assets/pytorch-course.jpg",
+    description: "Réseaux de neurones profonds et applications avancées avec PyTorch.",
+    features: ["CNN", "RNN", "Transformers", "GPU Computing"],
+    framework: "PyTorch"
+  },
+  {
+    id: 15,
+    title: "LLM & Chatbots IA",
+    category: "Intelligence Artificielle",
+    level: "Intermédiaire",
+    duration: "16h",
+    students: "789",
+    rating: 4.8,
+    price: "229€",
+    originalPrice: "319€",
+    image: "/src/assets/llm-course.jpg",
+    description: "Créez des chatbots intelligents avec les modèles de langage avancés.",
+    features: ["OpenAI API", "LangChain", "RAG", "Fine-tuning"],
+    framework: "LangChain"
+  },
+
+  // DevOps & Cloud
+  {
+    id: 16,
+    title: "Docker & Kubernetes",
+    category: "DevOps",
+    level: "Intermédiaire",
+    duration: "18h",
+    students: "1,123",
+    rating: 4.7,
+    price: "219€",
+    originalPrice: "299€",
+    image: "/src/assets/docker-course.jpg",
+    description: "Conteneurisation et orchestration avec Docker et Kubernetes.",
+    features: ["Containers", "Orchestration", "CI/CD", "Monitoring"],
+    framework: "Docker"
+  },
+  {
+    id: 17,
+    title: "AWS Cloud Practitioner",
+    category: "Cloud",
+    level: "Débutant",
+    duration: "14h",
+    students: "1,456",
+    rating: 4.8,
+    price: "199€",
+    originalPrice: "269€",
+    image: "/src/assets/aws-course.jpg",
+    description: "Maîtrisez les services AWS et préparez la certification Cloud Practitioner.",
+    features: ["EC2", "S3", "Lambda", "RDS"],
+    framework: "AWS"
+  },
+
+  // Mobile
+  {
+    id: 18,
+    title: "React Native Cross-Platform",
+    category: "Mobile",
+    level: "Intermédiaire",
+    duration: "16h",
+    students: "967",
+    rating: 4.7,
+    price: "209€",
+    originalPrice: "289€",
+    image: "/src/assets/rn-course.jpg",
+    description: "Développez des apps mobiles natives avec React Native.",
+    features: ["Navigation", "State Management", "Native Modules", "Publishing"],
+    framework: "React Native"
+  },
+  {
+    id: 19,
+    title: "Flutter & Dart",
+    category: "Mobile",
+    level: "Intermédiaire",
+    duration: "18h",
+    students: "834",
+    rating: 4.6,
+    price: "219€",
+    originalPrice: "299€",
+    image: "/src/assets/flutter-course.jpg",
+    description: "Créez des applications mobiles magnifiques avec Flutter.",
+    features: ["Widgets", "State Management", "Animations", "Platform Integration"],
+    framework: "Flutter"
+  },
+
+  // Blockchain
+  {
+    id: 20,
+    title: "Solidity & Smart Contracts",
+    category: "Blockchain",
+    level: "Avancé",
+    duration: "20h",
+    students: "456",
+    rating: 4.5,
+    price: "279€",
+    originalPrice: "379€",
+    image: "/src/assets/solidity-course.jpg",
+    description: "Développement de smart contracts et DApps sur Ethereum.",
+    features: ["Smart Contracts", "Web3.js", "DeFi", "Testing"],
+    framework: "Solidity"
+  }
+];
+
+export const categories = [
+  "Tous",
+  "Frontend", 
+  "Backend", 
+  "Langage", 
+  "Intelligence Artificielle", 
+  "DevOps", 
+  "Cloud", 
+  "Mobile", 
+  "Blockchain"
+];
+
+export const levels = ["Tous", "Débutant", "Intermédiaire", "Avancé"];
+
+export const frameworks = [
+  "Tous",
+  "React", "Vue.js", "Angular", "Svelte",
+  "Node.js", "Laravel", "Django", "Spring Boot",
+  "Python", "JavaScript", "TypeScript", "Rust",
+  "TensorFlow", "PyTorch", "LangChain",
+  "Docker", "AWS", "React Native", "Flutter", "Solidity"
+];

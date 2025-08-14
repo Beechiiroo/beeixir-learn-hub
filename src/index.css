@@ -137,6 +137,25 @@
 
   body {
     @apply bg-background text-foreground font-inter antialiased;
+    cursor: none; /* Hide default cursor */
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary)/0.8);
   }
 
   h1, h2, h3, h4, h5, h6 {

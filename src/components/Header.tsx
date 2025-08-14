@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Brain, BookOpen, User, MessageCircle } from "lucide-react";
+import { Menu, X, Code, Brain, BookOpen, User, MessageCircle, QrCode } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
 
-const Header = () => {
+interface HeaderProps {
+  setQrScannerOpen?: (open: boolean) => void;
+}
+
+const Header = ({ setQrScannerOpen }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -24,7 +28,7 @@ const Header = () => {
               </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">Beechir Dev</h1>
+              <h1 className="text-xl font-bold text-foreground">Beechir Chaieb</h1>
               <p className="text-xs text-muted-foreground">Tech & AI Learning</p>
             </div>
           </div>
@@ -52,6 +56,14 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-3">
             <ThemeToggle />
             <LanguageSelector />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setQrScannerOpen?.(true)}
+            >
+              <QrCode className="w-4 h-4 mr-2" />
+              Scanner QR
+            </Button>
             <Link to="/login">
               <Button variant="ghost" size="sm">
                 <User className="w-4 h-4 mr-2" />

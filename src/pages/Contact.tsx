@@ -73,7 +73,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header setQrScannerOpen={() => {}} />
       
       <main className="pt-24">
         {/* Hero Section */}

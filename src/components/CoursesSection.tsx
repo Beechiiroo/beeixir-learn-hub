@@ -73,66 +73,109 @@ const CoursesSection = () => {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <div className="bg-card rounded-2xl p-6 shadow-card">
-            {/* Search Bar */}
-            <div className="relative mb-6">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input
-                placeholder="Rechercher un cours, framework ou technologie..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 text-lg"
+          <div className="bg-card/80 backdrop-blur-sm rounded-3xl p-8 shadow-glow border border-primary/20 relative overflow-hidden">
+            {/* Background Animation */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 0% 0%, hsl(var(--primary)/0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 100% 100%, hsl(var(--primary)/0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 0% 100%, hsl(var(--primary)/0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 100% 0%, hsl(var(--primary)/0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 0% 0%, hsl(var(--primary)/0.1) 0%, transparent 50%)",
+                  ]
+                }}
+                transition={{ duration: 8, repeat: Infinity }}
+                className="absolute inset-0"
               />
             </div>
 
-            {/* Filters */}
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Catégorie</label>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map(category => (
-                      <SelectItem key={category} value={category}>{category}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+            <div className="relative z-10">
+              {/* Filter Header */}
+              <div className="flex items-center justify-center mb-8">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="inline-flex items-center bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-medium"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filtres intelligents
+                </motion.div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Niveau</label>
-                <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {levels.map(level => (
-                      <SelectItem key={level} value={level}>{level}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              {/* Enhanced Search Bar */}
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-primary/20 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-primary z-10" />
+                <Input
+                  placeholder="🔍 Rechercher un cours, framework ou technologie..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-14 h-16 text-lg bg-background/50 backdrop-blur-sm border-2 border-primary/30 rounded-2xl focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                />
+                <motion.div
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-primary font-medium"
+                >
+                  ⚡ Recherche instantanée
+                </motion.div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Framework</label>
-                <Select value={selectedFramework} onValueChange={setSelectedFramework}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {frameworks.map(framework => (
-                      <SelectItem key={framework} value={framework}>{framework}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              {/* Enhanced Filters */}
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { label: "🎯 Catégorie", value: selectedCategory, onChange: setSelectedCategory, options: categories },
+                  { label: "📊 Niveau", value: selectedLevel, onChange: setSelectedLevel, options: levels },
+                  { label: "⚡ Framework", value: selectedFramework, onChange: setSelectedFramework, options: frameworks }
+                ].map((filter, index) => (
+                  <motion.div
+                    key={filter.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    className="space-y-3"
+                  >
+                    <label className="text-sm font-semibold text-foreground flex items-center">
+                      {filter.label}
+                    </label>
+                    <Select value={filter.value} onValueChange={filter.onChange}>
+                      <SelectTrigger className="h-12 bg-background/50 border-2 border-muted-foreground/30 hover:border-primary/50 focus:border-primary transition-all duration-300 rounded-xl">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl border-primary/20 bg-card/95 backdrop-blur-sm">
+                        {filter.options.map(option => (
+                          <SelectItem 
+                            key={option} 
+                            value={option}
+                            className="hover:bg-primary/10 focus:bg-primary/10 rounded-lg"
+                          >
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </motion.div>
+                ))}
               </div>
-            </div>
 
-            {/* Results Count */}
-            <div className="mt-4 text-sm text-muted-foreground">
-              {filteredCourses.length} cours trouvé{filteredCourses.length > 1 ? 's' : ''}
+              {/* Enhanced Results Count */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-8 text-center"
+              >
+                <div className="inline-flex items-center bg-success/10 text-success px-4 py-2 rounded-full text-sm font-medium">
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-2 h-2 bg-success rounded-full mr-2"
+                  />
+                  {filteredCourses.length} cours trouvé{filteredCourses.length > 1 ? 's' : ''} 
+                  {searchTerm && ` pour "${searchTerm}"`}
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>

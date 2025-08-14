@@ -10,7 +10,7 @@ const AboutSection = () => {
           <div>
             <div className="inline-flex items-center bg-secondary-light text-secondary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Target className="w-4 h-4 mr-2" />
-              À propos de Beechir Dev
+              À propos de Beechir Chaieb
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">

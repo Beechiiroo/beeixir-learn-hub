@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src={heroImage} 
-          alt="Beechir Dev - Formation Tech et IA" 
+          alt="Beechir Chaieb - Formation Tech et IA" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60"></div>
@@ -32,7 +32,7 @@ const HeroSection = () => {
             Maîtrisez la <span className="gradient-primary bg-clip-text text-transparent">Tech</span> et l'
             <span className="gradient-neural bg-clip-text text-transparent">IA</span>
             <br />
-            avec Beechir Dev
+            avec Beechir Chaieb
           </h1>
 
           {/* Subtitle */}

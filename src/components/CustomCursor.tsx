@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Code, Brain } from "lucide-react";
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -48,38 +49,44 @@ const CustomCursor = () => {
       }}
     >
       <div className="relative w-full h-full">
-        {/* Main cursor circle */}
+        {/* Main logo cursor */}
         <motion.div
-          className="w-full h-full bg-white rounded-full"
+          className="w-full h-full gradient-primary rounded-lg flex items-center justify-center"
           animate={{
-            scale: isHovering ? 0.5 : 1,
+            scale: isHovering ? 1.2 : 1,
+            rotate: isHovering ? 180 : 0,
           }}
-          transition={{ duration: 0.2 }}
-        />
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <Code className="w-3 h-3 text-white" />
+          <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-secondary rounded-full flex items-center justify-center">
+            <Brain className="w-1 h-1 text-white" />
+          </div>
+        </motion.div>
         
-        {/* Animated ring */}
+        {/* Animated ring around logo */}
         <motion.div
-          className="absolute inset-0 border-2 border-white rounded-full"
+          className="absolute inset-0 border-2 border-primary/50 rounded-lg"
           animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.8, 0.3, 0.8],
+            scale: [1, 1.3, 1],
+            opacity: [0.8, 0.2, 0.8],
           }}
           transition={{
-            duration: 2,
+            duration: 2.5,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         
-        {/* Inner pulse dot */}
+        {/* Outer glow effect */}
         <motion.div
-          className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute inset-0 bg-primary/20 rounded-lg blur-sm"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [1, 0.6, 1],
+            scale: [1, 1.4, 1],
+            opacity: [0.3, 0.1, 0.3],
           }}
           transition={{
-            duration: 1.5,
+            duration: 3,
             repeat: Infinity,
             ease: "easeInOut"
           }}

@@ -79,7 +79,7 @@ const Register = () => {
             </motion.div>
             <CardTitle className="text-2xl font-bold">Créer un compte</CardTitle>
             <CardDescription>
-              Rejoignez Beechir Dev et commencez votre apprentissage
+              Rejoignez Beechir Chaieb et commencez votre apprentissage
             </CardDescription>
           </CardHeader>
 

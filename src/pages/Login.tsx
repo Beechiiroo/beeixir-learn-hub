@@ -61,7 +61,7 @@ const Login = () => {
             </motion.div>
             <CardTitle className="text-2xl font-bold">Connexion</CardTitle>
             <CardDescription>
-              Connectez-vous à votre compte Beechir Dev
+              Connectez-vous à votre compte Beechir Chaieb
             </CardDescription>
           </CardHeader>
 

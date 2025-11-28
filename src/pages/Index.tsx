@@ -9,6 +9,10 @@ import RobotVerification from "@/components/RobotVerification";
 import QRCodeScanner from "@/components/QRCodeScanner";
 import Chatbot from "@/components/Chatbot";
 import CustomCursor from "@/components/CustomCursor";
+import TaskManager from "@/components/TaskManager";
+import ProgressTracker from "@/components/ProgressTracker";
+import ParticleBackground from "@/components/ParticleBackground";
+import Newsletter from "@/components/Newsletter";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -33,14 +37,18 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <ParticleBackground />
       <CustomCursor />
       <Header setQrScannerOpen={setQrScannerOpen} />
-      <main>
+      <main className="relative z-10">
         <HeroSection />
+        <ProgressTracker />
         <CoursesSection />
+        <TaskManager />
         <TechnologiesSection />
         <AboutSection />
+        <Newsletter />
       </main>
       <Footer />
       

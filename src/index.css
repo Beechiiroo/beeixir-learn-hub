@@ -63,6 +63,8 @@
     --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(266 85% 70%) 50%, hsl(142 76% 50%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(217 91% 98%) 100%);
     --gradient-neural: linear-gradient(45deg, hsl(266 85% 70%), hsl(217 91% 60%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 50%), hsl(32 95% 60%));
+    --gradient-cosmic: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(266 85% 70%) 25%, hsl(32 95% 60%) 50%, hsl(142 76% 50%) 75%, hsl(217 91% 60%) 100%);
 
     /* Shadows with Brand Colors */
     --shadow-primary: 0 10px 40px -10px hsl(217 91% 60% / 0.3);
@@ -179,6 +181,21 @@
   
   .gradient-neural {
     background: var(--gradient-neural);
+  }
+  
+  .gradient-success {
+    background: var(--gradient-success);
+  }
+  
+  .gradient-cosmic {
+    background: var(--gradient-cosmic);
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
   
   /* Shadow utilities */

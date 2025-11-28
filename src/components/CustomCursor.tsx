@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Code, Brain } from "lucide-react";
+import bcLogo from "@/assets/bc-logo.png";
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -49,20 +49,17 @@ const CustomCursor = () => {
       }}
     >
       <div className="relative w-full h-full">
-        {/* Main logo cursor */}
-        <motion.div
-          className="w-full h-full gradient-primary rounded-lg flex items-center justify-center"
+        {/* BC Logo cursor */}
+        <motion.img
+          src={bcLogo}
+          alt="BC"
+          className="w-full h-full object-contain"
           animate={{
-            scale: isHovering ? 1.2 : 1,
-            rotate: isHovering ? 180 : 0,
+            scale: isHovering ? 1.3 : 1,
+            rotate: isHovering ? 360 : 0,
           }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <Code className="w-3 h-3 text-white" />
-          <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-secondary rounded-full flex items-center justify-center">
-            <Brain className="w-1 h-1 text-white" />
-          </div>
-        </motion.div>
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        />
         
         {/* Animated ring around logo */}
         <motion.div

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Code, Brain, BookOpen, User, MessageCircle, QrCode } from "lucide-react";
+import { Menu, X, BookOpen, User, QrCode } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
+import bcLogo from "@/assets/bc-logo.png";
 
 interface HeaderProps {
   setQrScannerOpen?: (open: boolean) => void;
@@ -18,20 +19,21 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center">
-                <Code className="w-5 h-5 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full flex items-center justify-center">
-                <Brain className="w-2.5 h-2.5 text-white" />
-              </div>
-            </div>
+          <a href="/" className="flex items-center space-x-3 group">
+            <motion.img
+              src={bcLogo}
+              alt="Beechir Chaieb Logo"
+              className="w-12 h-12"
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+            />
             <div>
-              <h1 className="text-xl font-bold text-foreground">Beechir Chaieb</h1>
+              <h1 className="text-xl font-bold gradient-primary bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                Beechir Chaieb
+              </h1>
               <p className="text-xs text-muted-foreground">Tech & AI Learning</p>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">

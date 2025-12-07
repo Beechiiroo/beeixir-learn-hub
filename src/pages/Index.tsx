@@ -13,6 +13,7 @@ import TaskManager from "@/components/TaskManager";
 import ProgressTracker from "@/components/ProgressTracker";
 import ParticleBackground from "@/components/ParticleBackground";
 import Newsletter from "@/components/Newsletter";
+import GamificationSection from "@/components/GamificationSection";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -44,6 +45,7 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSection />
         <ProgressTracker />
+        <GamificationSection />
         <CoursesSection />
         <TaskManager />
         <TechnologiesSection />

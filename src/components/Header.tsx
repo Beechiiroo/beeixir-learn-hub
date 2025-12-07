@@ -43,6 +43,9 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             <a href="#cours" className="text-foreground hover:text-primary transition-base font-medium">
               Cours & Formations
             </a>
+            <Link to="/dashboard" className="text-foreground hover:text-primary transition-base font-medium">
+              Dashboard
+            </Link>
             <a href="#about" className="text-foreground hover:text-primary transition-base font-medium">
               À propos
             </a>
@@ -98,6 +101,9 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             <a href="#cours" className="block text-foreground hover:text-primary transition-base font-medium">
               Cours & Formations
             </a>
+            <Link to="/dashboard" className="block text-foreground hover:text-primary transition-base font-medium">
+              Dashboard
+            </Link>
             <a href="#about" className="block text-foreground hover:text-primary transition-base font-medium">
               À propos
             </a>

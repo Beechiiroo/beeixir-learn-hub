@@ -14,6 +14,7 @@ import ProgressTracker from "@/components/ProgressTracker";
 import ParticleBackground from "@/components/ParticleBackground";
 import Newsletter from "@/components/Newsletter";
 import GamificationSection from "@/components/GamificationSection";
+import BlogSection from "@/components/BlogSection";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -49,6 +50,7 @@ const Index = () => {
         <CoursesSection />
         <TaskManager />
         <TechnologiesSection />
+        <BlogSection />
         <AboutSection />
         <Newsletter />
       </main>

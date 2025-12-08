@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
-import bcLogo from "@/assets/bc-logo.png";
+import bcLogo from "@/assets/bc-logo-official.png";
 
 interface HeaderProps {
   setQrScannerOpen?: (open: boolean) => void;

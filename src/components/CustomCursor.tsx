@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bcLogo from "@/assets/bc-logo.png";
+import bcLogo from "@/assets/bc-logo-official.png";
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });

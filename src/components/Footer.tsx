@@ -1,6 +1,7 @@
-import { Code, Brain, Mail, Phone, MapPin, Github, Linkedin, Twitter, Youtube, QrCode } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Youtube, QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import siteQrCode from "@/assets/site-qr-code.png";
+import bcLogo from "@/assets/bc-logo-official.png";
 
 const Footer = () => {
   return (
@@ -13,14 +14,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="relative">
-                <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center">
-                  <Code className="w-5 h-5 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full flex items-center justify-center">
-                  <Brain className="w-2.5 h-2.5 text-white" />
-                </div>
-              </div>
+              <img 
+                src={bcLogo} 
+                alt="Beechir Chaieb Logo" 
+                className="w-12 h-12 object-contain"
+              />
               <div>
                 <h3 className="text-xl font-bold text-white">Beechir Chaieb</h3>
                 <p className="text-sm text-muted">Tech & AI Learning</p>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
+import NotificationSystem from "./NotificationSystem";
 import bcLogo from "@/assets/bc-logo-official.png";
 
 interface HeaderProps {
@@ -61,6 +62,7 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
           <div className="hidden md:flex items-center space-x-3">
             <ThemeToggle />
             <LanguageSelector />
+            <NotificationSystem />
             <Button
               variant="ghost"
               size="sm"
@@ -69,10 +71,10 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
               <QrCode className="w-4 h-4 mr-2" />
               Scanner QR
             </Button>
-            <Link to="/login">
+            <Link to="/profile">
               <Button variant="ghost" size="sm">
                 <User className="w-4 h-4 mr-2" />
-                Connexion
+                Profil
               </Button>
             </Link>
             <Link to="/register">
@@ -117,11 +119,12 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
               <div className="flex items-center justify-between mb-2">
                 <ThemeToggle />
                 <LanguageSelector />
+                <NotificationSystem />
               </div>
-              <Link to="/login">
+              <Link to="/profile">
                 <Button variant="ghost" size="sm" className="justify-start w-full">
                   <User className="w-4 h-4 mr-2" />
-                  Connexion
+                  Profil
                 </Button>
               </Link>
               <Link to="/register">

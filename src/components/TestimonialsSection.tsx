@@ -19,13 +19,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
+// Import testimonial images
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial3 from "@/assets/testimonial-3.jpg";
+import testimonial4 from "@/assets/testimonial-4.jpg";
+import testimonial5 from "@/assets/testimonial-5.jpg";
+import testimonial6 from "@/assets/testimonial-6.jpg";
+
 const testimonials = [
   {
     id: 1,
     name: "Sophie Martin",
     role: "Développeuse Full-Stack",
     company: "Google France",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+    avatar: testimonial1,
     rating: 5,
     text: "Grâce aux formations de Beechir, j'ai pu décrocher mon poste de rêve chez Google. Les cours React et Node.js sont exceptionnels, avec une pédagogie claire et des projets concrets.",
     course: "React & Node.js",
@@ -39,7 +47,7 @@ const testimonials = [
     name: "Thomas Dubois",
     role: "Data Scientist",
     company: "Amazon",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+    avatar: testimonial2,
     rating: 5,
     text: "La formation en Machine Learning m'a ouvert les portes du monde de la Data Science. Les explications sont claires et les projets pratiques m'ont permis de construire un portfolio solide.",
     course: "Machine Learning",
@@ -53,7 +61,7 @@ const testimonials = [
     name: "Marie Chen",
     role: "Lead Developer",
     company: "Meta",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
+    avatar: testimonial3,
     rating: 5,
     text: "J'ai commencé de zéro et maintenant je dirige une équipe de 10 développeurs. Les formations sont complètes et le support de la communauté est incroyable.",
     course: "Angular & TypeScript",
@@ -67,7 +75,7 @@ const testimonials = [
     name: "Alexandre Petit",
     role: "Freelance Developer",
     company: "Indépendant",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+    avatar: testimonial4,
     rating: 5,
     text: "Après 15 ans dans la restauration, j'ai réussi ma reconversion grâce à Beechir. Aujourd'hui je facture 500€/jour en tant que freelance.",
     course: "Python & Django",
@@ -81,7 +89,7 @@ const testimonials = [
     name: "Léa Bernard",
     role: "AI Engineer",
     company: "OpenAI",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+    avatar: testimonial5,
     rating: 5,
     text: "La formation Deep Learning est la plus complète que j'ai suivie. J'ai pu intégrer OpenAI grâce aux compétences acquises.",
     course: "Deep Learning",
@@ -95,7 +103,7 @@ const testimonials = [
     name: "Pierre Moreau",
     role: "CTO",
     company: "Startup Tech",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
+    avatar: testimonial6,
     rating: 5,
     text: "J'ai lancé ma startup après avoir suivi les formations. Les cours sur l'architecture et les bonnes pratiques m'ont été essentiels.",
     course: "Full-Stack Mastery",

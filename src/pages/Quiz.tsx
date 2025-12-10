@@ -643,10 +643,16 @@ const Quiz = () => {
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Recommencer
                   </Button>
+                  <Link to="/leaderboard">
+                    <Button size="lg" variant="outline" className="border-warning text-warning hover:bg-warning/10">
+                      <Trophy className="w-4 h-4 mr-2" />
+                      Voir le Classement
+                    </Button>
+                  </Link>
                   <Link to="/dashboard">
                     <Button size="lg" className="bg-gradient-to-r from-primary to-secondary">
                       <Home className="w-4 h-4 mr-2" />
-                      Retour au Dashboard
+                      Dashboard
                     </Button>
                   </Link>
                 </div>

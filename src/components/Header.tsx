@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, BookOpen, User, QrCode, Brain } from "lucide-react";
+import { Menu, X, BookOpen, User, QrCode, Brain, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
@@ -50,6 +50,10 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             <Link to="/quiz" className="text-foreground hover:text-primary transition-base font-medium flex items-center gap-1">
               <Brain className="w-4 h-4" />
               Quiz
+            </Link>
+            <Link to="/leaderboard" className="text-foreground hover:text-primary transition-base font-medium flex items-center gap-1">
+              <Trophy className="w-4 h-4" />
+              Classement
             </Link>
             <a href="#about" className="text-foreground hover:text-primary transition-base font-medium">
               À propos
@@ -113,6 +117,10 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             <Link to="/quiz" className="flex items-center gap-2 text-foreground hover:text-primary transition-base font-medium">
               <Brain className="w-4 h-4" />
               Quiz
+            </Link>
+            <Link to="/leaderboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-base font-medium">
+              <Trophy className="w-4 h-4" />
+              Classement
             </Link>
             <a href="#about" className="block text-foreground hover:text-primary transition-base font-medium">
               À propos

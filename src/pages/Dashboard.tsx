@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -299,9 +300,17 @@ const Dashboard = () => {
                         <div className={`w-2 h-2 rounded-full ${course.color}`} />
                         <span className="font-medium text-foreground">{course.name}</span>
                       </div>
-                      <span className="text-sm text-muted-foreground">
-                        {course.completed}/{course.total} leçons
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <Link to={`/quiz?course=${encodeURIComponent(course.name)}`}>
+                          <Button variant="outline" size="sm" className="text-xs h-7">
+                            <Brain className="w-3 h-3 mr-1" />
+                            Quiz
+                          </Button>
+                        </Link>
+                        <span className="text-sm text-muted-foreground">
+                          {course.completed}/{course.total} leçons
+                        </span>
+                      </div>
                     </div>
                     <div className="relative">
                       <Progress value={course.progress} className="h-2" />

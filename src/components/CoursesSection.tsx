@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Clock, Users, Star, Play, ArrowRight, BookOpen, Filter, Search } from "lucide-react";
+import { Clock, Users, Star, Play, ArrowRight, BookOpen, Filter, Search, Brain } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { allCourses, categories, levels, frameworks } from "@/data/courses";
@@ -257,10 +258,17 @@ const CoursesSection = () => {
                     <span className="text-2xl font-bold text-foreground">{course.price}</span>
                     <span className="text-sm text-muted-foreground line-through">{course.originalPrice}</span>
                   </div>
-                  <Button variant="default" size="sm" className="group/btn">
-                    S'inscrire
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-base" />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Link to={`/quiz?course=${encodeURIComponent(course.framework)}`}>
+                      <Button variant="outline" size="sm" className="group/btn">
+                        <Brain className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                    <Button variant="default" size="sm" className="group/btn">
+                      S'inscrire
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-base" />
+                    </Button>
+                  </div>
                 </div>
               </div>
 

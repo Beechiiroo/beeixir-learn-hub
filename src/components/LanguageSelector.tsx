@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Globe, ChevronDown } from "lucide-react";
+import { Globe } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,16 +23,8 @@ const LanguageSelector = () => {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
-          <Globe className="w-4 h-4" />
-          <span className="hidden sm:inline">{currentLang.flag}</span>
-          <span className="hidden md:inline">{currentLang.name}</span>
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ChevronDown className="w-3 h-3" />
-          </motion.div>
+        <Button variant="ghost" size="icon" className="h-9 w-9">
+          <span className="text-base">{currentLang.flag}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">

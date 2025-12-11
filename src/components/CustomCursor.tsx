@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bcLogo from "@/assets/bc-logo-official.png";
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
     };
 
     const handleMouseEnter = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
+    const handleMouseOut = () => setIsVisible(false);
 
-    // Add event listeners
     document.addEventListener("mousemove", updatePosition);
+    document.addEventListener("mouseout", handleMouseOut);
     
-    // Add hover detection for interactive elements
     const interactiveElements = document.querySelectorAll("button, a, input, select, textarea, [role='button']");
     interactiveElements.forEach(el => {
       el.addEventListener("mouseenter", handleMouseEnter);
@@ -26,6 +27,7 @@ const CustomCursor = () => {
 
     return () => {
       document.removeEventListener("mousemove", updatePosition);
+      document.removeEventListener("mouseout", handleMouseOut);
       interactiveElements.forEach(el => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
@@ -33,63 +35,68 @@ const CustomCursor = () => {
     };
   }, []);
 
+  if (!isVisible) return null;
+
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-[9999] mix-blend-difference"
-      animate={{
-        x: position.x - 12,
-        y: position.y - 12,
-        scale: isHovering ? 2 : 1,
-      }}
-      transition={{
-        type: "spring",
-        damping: 30,
-        stiffness: 400,
-        mass: 0.5
-      }}
-    >
-      <div className="relative w-full h-full">
-        {/* BC Logo cursor */}
-        <motion.img
-          src={bcLogo}
-          alt="BC"
-          className="w-full h-full object-contain"
-          animate={{
-            scale: isHovering ? 1.3 : 1,
-            rotate: isHovering ? 360 : 0,
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        />
-        
-        {/* Animated ring around logo */}
+    <>
+      {/* Main cursor dot */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+        animate={{
+          x: position.x - 6,
+          y: position.y - 6,
+          scale: isHovering ? 0.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          damping: 30,
+          stiffness: 500,
+          mass: 0.2
+        }}
+      >
+        <div className="w-3 h-3 bg-primary rounded-full" />
+      </motion.div>
+
+      {/* Outer ring */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9998]"
+        animate={{
+          x: position.x - 20,
+          y: position.y - 20,
+          scale: isHovering ? 1.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          damping: 20,
+          stiffness: 150,
+          mass: 0.5
+        }}
+      >
+        <div className="w-10 h-10 border-2 border-primary/50 rounded-full" />
+      </motion.div>
+
+      {/* Glow effect on hover */}
+      {isHovering && (
         <motion.div
-          className="absolute inset-0 border-2 border-primary/50 rounded-lg"
+          className="fixed top-0 left-0 pointer-events-none z-[9997]"
+          initial={{ opacity: 0, scale: 0 }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.8, 0.2, 0.8],
+            x: position.x - 30,
+            y: position.y - 30,
+            opacity: 0.3,
+            scale: 1,
           }}
+          exit={{ opacity: 0, scale: 0 }}
           transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut"
+            type: "spring",
+            damping: 20,
+            stiffness: 150,
           }}
-        />
-        
-        {/* Outer glow effect */}
-        <motion.div
-          className="absolute inset-0 bg-primary/20 rounded-lg blur-sm"
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.3, 0.1, 0.3],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
-    </motion.div>
+        >
+          <div className="w-[60px] h-[60px] bg-primary/20 rounded-full blur-md" />
+        </motion.div>
+      )}
+    </>
   );
 };
 

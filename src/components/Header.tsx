@@ -37,37 +37,37 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#accueil" className="text-foreground hover:text-primary transition-base font-medium">
+          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+            <a href="#accueil" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
               Accueil
             </a>
-            <a href="#cours" className="text-foreground hover:text-primary transition-base font-medium">
-              Cours & Formations
+            <a href="#cours" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
+              Cours
             </a>
-            <Link to="/dashboard" className="text-foreground hover:text-primary transition-base font-medium">
+            <Link to="/dashboard" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
               Dashboard
             </Link>
-            <Link to="/quiz" className="text-foreground hover:text-primary transition-base font-medium flex items-center gap-1">
-              <Brain className="w-4 h-4" />
+            <Link to="/quiz" className="text-sm text-foreground hover:text-primary transition-base font-medium flex items-center gap-1 whitespace-nowrap">
+              <Brain className="w-3.5 h-3.5" />
               Quiz
             </Link>
-            <Link to="/leaderboard" className="text-foreground hover:text-primary transition-base font-medium flex items-center gap-1">
-              <Trophy className="w-4 h-4" />
+            <Link to="/leaderboard" className="text-sm text-foreground hover:text-primary transition-base font-medium flex items-center gap-1 whitespace-nowrap">
+              <Trophy className="w-3.5 h-3.5" />
               Classement
             </Link>
-            <a href="#about" className="text-foreground hover:text-primary transition-base font-medium">
+            <a href="#about" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
               À propos
             </a>
-            <a href="#blog" className="text-foreground hover:text-primary transition-base font-medium">
+            <a href="#blog" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
               Blog
             </a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-base font-medium">
+            <a href="#contact" className="text-sm text-foreground hover:text-primary transition-base font-medium whitespace-nowrap">
               Contact
             </a>
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden lg:flex items-center space-x-2">
             <ThemeToggle />
             <LanguageSelector />
             <NotificationSystem />
@@ -75,19 +75,18 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
               variant="ghost"
               size="sm"
               onClick={() => setQrScannerOpen?.(true)}
+              className="px-2"
             >
-              <QrCode className="w-4 h-4 mr-2" />
-              Scanner QR
+              <QrCode className="w-4 h-4" />
             </Button>
             <Link to="/profile">
-              <Button variant="ghost" size="sm">
-                <User className="w-4 h-4 mr-2" />
-                Profil
+              <Button variant="ghost" size="sm" className="px-2">
+                <User className="w-4 h-4" />
               </Button>
             </Link>
             <Link to="/register">
               <Button variant="hero" size="sm">
-                <BookOpen className="w-4 h-4 mr-2" />
+                <BookOpen className="w-4 h-4 mr-1" />
                 Commencer
               </Button>
             </Link>
@@ -95,16 +94,16 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground hover:text-primary transition-base"
+            className="lg:hidden p-2 text-foreground hover:text-primary transition-base"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile/Tablet Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-6 pb-6 border-t border-border pt-6 space-y-4">
+          <nav className="lg:hidden mt-6 pb-6 border-t border-border pt-6 space-y-4">
             <a href="#accueil" className="block text-foreground hover:text-primary transition-base font-medium">
               Accueil
             </a>

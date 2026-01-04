@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import VisualModeSelector from "./VisualModeSelector";
 import LanguageSelector from "./LanguageSelector";
-import NotificationSystem from "./NotificationSystem";
+import { NotificationBell } from "./NotificationSystem";
+import { AccessibilityPanel } from "./AccessibilityMode";
 import bcLogo from "@/assets/bc-logo-official.png";
 import {
   DropdownMenu,
@@ -123,9 +124,10 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-1">
+            <AccessibilityPanel />
             <VisualModeSelector />
             <LanguageSelector />
-            <NotificationSystem />
+            <NotificationBell />
             
             <Button
               variant="ghost"
@@ -172,8 +174,9 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             </nav>
             
             <div className="flex items-center gap-1 ml-2 border-l border-border/50 pl-2">
+              <AccessibilityPanel />
               <VisualModeSelector />
-              <NotificationSystem />
+              <NotificationBell />
               <Link to="/register">
                 <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   <BookOpen className="w-4 h-4" />
@@ -287,9 +290,10 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
                 >
                   <div className="flex items-center justify-between px-4">
                     <div className="flex items-center gap-2">
+                      <AccessibilityPanel />
                       <VisualModeSelector />
                       <LanguageSelector />
-                      <NotificationSystem />
+                      <NotificationBell />
                     </div>
                     <Button
                       variant="ghost"

@@ -29,6 +29,8 @@ import MusicPlayer from "@/components/MusicPlayer";
 import ReadingProgress from "@/components/ReadingProgress";
 import QuickActions from "@/components/QuickActions";
 import AchievementPopup from "@/components/AchievementPopup";
+import { FavoritesProvider } from "@/components/FavoritesSystem";
+import { AccessibilityProvider } from "@/components/AccessibilityMode";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -53,8 +55,10 @@ const Index = () => {
   }
 
   return (
-    <FocusModeProvider>
-      <div className="min-h-screen bg-background relative">
+    <AccessibilityProvider>
+      <FavoritesProvider>
+        <FocusModeProvider>
+          <div className="min-h-screen bg-background relative">
         <ParticleBackground />
         <StarryBackground />
         <EnhancedCursor />
@@ -137,8 +141,10 @@ const Index = () => {
         
         <MusicPlayer />
         <QuickActions />
-      </div>
-    </FocusModeProvider>
+          </div>
+        </FocusModeProvider>
+      </FavoritesProvider>
+    </AccessibilityProvider>
   );
 };
 

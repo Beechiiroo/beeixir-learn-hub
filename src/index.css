@@ -256,3 +256,38 @@
     transition: var(--transition-smooth);
   }
 }
+
+/* Accessibility Mode Styles */
+.high-contrast {
+  --foreground: 0 0% 0%;
+  --background: 0 0% 100%;
+  --primary: 220 90% 40%;
+  --muted-foreground: 0 0% 20%;
+}
+
+.dark.high-contrast {
+  --foreground: 0 0% 100%;
+  --background: 0 0% 0%;
+  --primary: 220 90% 70%;
+  --muted-foreground: 0 0% 80%;
+}
+
+.reduce-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+.enhanced-focus *:focus-visible {
+  outline: 3px solid hsl(var(--primary)) !important;
+  outline-offset: 2px !important;
+}
+
+.dyslexia-font {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', cursive, sans-serif !important;
+}
+
+body {
+  line-height: calc(1.5 * var(--line-height-modifier, 1));
+  letter-spacing: var(--letter-spacing-modifier, 0);
+}

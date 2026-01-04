@@ -368,4 +368,7 @@ const NotificationSystem = () => {
   );
 };
 
+// Named export for compatibility
+export const NotificationBell = NotificationSystem;
+
 export default NotificationSystem;

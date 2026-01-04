@@ -1,15 +1,26 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useVisualMode } from "@/contexts/ThemeContext";
 
 const StarryBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
+  const { visualMode } = useVisualMode();
+
+  const isActive = theme === "dark" && (visualMode === "starry" || visualMode === "aurora");
+  const showAurora = visualMode === "aurora";
 
   useEffect(() => {
+    if (!isActive) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    let animationId: number;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -48,35 +59,39 @@ const StarryBackground = () => {
 
     // Aurora colors
     const auroraColors = [
-      "rgba(34, 197, 94, 0.1)",
-      "rgba(59, 130, 246, 0.1)",
-      "rgba(168, 85, 247, 0.1)",
+      "rgba(34, 197, 94, 0.12)",
+      "rgba(59, 130, 246, 0.12)",
+      "rgba(168, 85, 247, 0.12)",
       "rgba(236, 72, 153, 0.08)",
     ];
 
     let time = 0;
 
     const animate = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillStyle = "rgba(10, 15, 30, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw aurora
-      time += 0.005;
-      auroraColors.forEach((color, i) => {
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height * 0.3);
-        for (let x = 0; x <= canvas.width; x += 10) {
-          const y = canvas.height * 0.3 + 
-            Math.sin(x * 0.003 + time + i) * 50 +
-            Math.sin(x * 0.007 + time * 1.5) * 30;
-          ctx.lineTo(x, y);
-        }
-        ctx.lineTo(canvas.width, 0);
-        ctx.lineTo(0, 0);
-        ctx.closePath();
-        ctx.fillStyle = color;
-        ctx.fill();
-      });
+      // Draw aurora only if enabled
+      if (showAurora) {
+        time += 0.005;
+        auroraColors.forEach((color, i) => {
+          ctx.beginPath();
+          ctx.moveTo(0, canvas.height * 0.3);
+          for (let x = 0; x <= canvas.width; x += 10) {
+            const y = canvas.height * 0.3 + 
+              Math.sin(x * 0.003 + time + i) * 50 +
+              Math.sin(x * 0.007 + time * 1.5) * 30;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(canvas.width, 0);
+          ctx.lineTo(0, 0);
+          ctx.closePath();
+          ctx.fillStyle = color;
+          ctx.fill();
+        });
+      } else {
+        time += 0.002;
+      }
 
       // Draw stars with twinkling
       stars.forEach((star) => {
@@ -122,23 +137,27 @@ const StarryBackground = () => {
         }
       });
 
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isActive, showAurora]);
+
+  if (!isActive) return null;
 
   return (
     <motion.canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 dark:opacity-100 opacity-0 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-0"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
     />
   );
 };

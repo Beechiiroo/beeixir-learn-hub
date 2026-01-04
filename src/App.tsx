@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeContextProvider } from "@/contexts/ThemeContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Preloader from "@/components/Preloader";
 import Index from "./pages/Index";
@@ -71,14 +72,16 @@ const App = () => {
         enableSystem
         disableTransitionOnChange
       >
-        {isLoading && <Preloader onLoadingComplete={() => setIsLoading(false)} />}
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AnimatedRoutes />
-          </BrowserRouter>
-        </TooltipProvider>
+        <ThemeContextProvider>
+          {isLoading && <Preloader onLoadingComplete={() => setIsLoading(false)} />}
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AnimatedRoutes />
+            </BrowserRouter>
+          </TooltipProvider>
+        </ThemeContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

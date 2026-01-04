@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, BookOpen, User, QrCode, Brain, Trophy, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
+import VisualModeSelector from "./VisualModeSelector";
 import LanguageSelector from "./LanguageSelector";
 import NotificationSystem from "./NotificationSystem";
 import bcLogo from "@/assets/bc-logo-official.png";
@@ -123,7 +123,7 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-1">
-            <ThemeToggle />
+            <VisualModeSelector />
             <LanguageSelector />
             <NotificationSystem />
             
@@ -172,7 +172,7 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
             </nav>
             
             <div className="flex items-center gap-1 ml-2 border-l border-border/50 pl-2">
-              <ThemeToggle />
+              <VisualModeSelector />
               <NotificationSystem />
               <Link to="/register">
                 <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -287,7 +287,7 @@ const Header = ({ setQrScannerOpen }: HeaderProps) => {
                 >
                   <div className="flex items-center justify-between px-4">
                     <div className="flex items-center gap-2">
-                      <ThemeToggle />
+                      <VisualModeSelector />
                       <LanguageSelector />
                       <NotificationSystem />
                     </div>

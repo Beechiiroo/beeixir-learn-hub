@@ -25,6 +25,10 @@ import ProgressCalculator from "@/components/ProgressCalculator";
 import CareerTimeline from "@/components/CareerTimeline";
 import EasterEggs from "@/components/EasterEggs";
 import { FocusModeProvider } from "@/components/FocusMode";
+import MusicPlayer from "@/components/MusicPlayer";
+import ReadingProgress from "@/components/ReadingProgress";
+import QuickActions from "@/components/QuickActions";
+import AchievementPopup from "@/components/AchievementPopup";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -55,6 +59,8 @@ const Index = () => {
         <StarryBackground />
         <EnhancedCursor />
         <EasterEggs />
+        <ReadingProgress />
+        <AchievementPopup />
         <Header setQrScannerOpen={setQrScannerOpen} />
         <main className="relative z-10">
           <HeroSection />
@@ -128,6 +134,9 @@ const Index = () => {
           isOpen={chatbotOpen} 
           onToggle={() => setChatbotOpen(!chatbotOpen)} 
         />
+        
+        <MusicPlayer />
+        <QuickActions />
       </div>
     </FocusModeProvider>
   );

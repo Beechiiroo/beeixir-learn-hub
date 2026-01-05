@@ -28,7 +28,7 @@ const QuickActions = () => {
   ];
 
   return (
-    <div className="fixed right-6 bottom-6 z-50">
+    <div className="fixed right-24 bottom-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -73,7 +73,7 @@ const QuickActions = () => {
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-14 w-14 rounded-full bg-gradient-to-br from-primary to-secondary shadow-xl hover:shadow-2xl"
+          className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-secondary shadow-xl hover:shadow-2xl"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -83,7 +83,7 @@ const QuickActions = () => {
                 animate={{ rotate: 0, scale: 1 }}
                 exit={{ rotate: 90, scale: 0 }}
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               </motion.div>
             ) : (
               <motion.div
@@ -92,7 +92,7 @@ const QuickActions = () => {
                 animate={{ rotate: 0, scale: 1 }}
                 exit={{ rotate: -90, scale: 0 }}
               >
-                <Zap className="h-6 w-6" />
+                <Zap className="h-5 w-5" />
               </motion.div>
             )}
           </AnimatePresence>

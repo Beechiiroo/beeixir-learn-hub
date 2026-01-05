@@ -31,6 +31,14 @@ import QuickActions from "@/components/QuickActions";
 import AchievementPopup from "@/components/AchievementPopup";
 import { FavoritesProvider } from "@/components/FavoritesSystem";
 import { AccessibilityProvider } from "@/components/AccessibilityMode";
+import VoiceCommands from "@/components/VoiceCommands";
+import AIAssistant from "@/components/AIAssistant";
+import GestureNavigation from "@/components/GestureNavigation";
+import LiveActivityFeed from "@/components/LiveActivityFeed";
+import SmartRecommendations from "@/components/SmartRecommendations";
+import FocusTimer from "@/components/FocusTimer";
+import ScreenRecorder from "@/components/ScreenRecorder";
+import CodeSnippetSaver from "@/components/CodeSnippetSaver";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -59,88 +67,104 @@ const Index = () => {
       <FavoritesProvider>
         <FocusModeProvider>
           <div className="min-h-screen bg-background relative">
-        <ParticleBackground />
-        <StarryBackground />
-        <EnhancedCursor />
-        <EasterEggs />
-        <ReadingProgress />
-        <AchievementPopup />
-        <Header setQrScannerOpen={setQrScannerOpen} />
-        <main className="relative z-10">
-          <HeroSection />
-          
-          <ScrollReveal direction="up" delay={0.1}>
-            <ProgressTracker />
-          </ScrollReveal>
-          
-          <ParallaxSection speed={0.3}>
-            <ScrollReveal direction="scale" delay={0.1}>
-              <GamificationSection />
-            </ScrollReveal>
-          </ParallaxSection>
-          
-          <ScrollReveal direction="left" delay={0.1}>
-            <CoursesSection />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="up" delay={0.1}>
-            <CourseComparator />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="scale" delay={0.1}>
-            <LiveCodePreview />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="right" delay={0.1}>
-            <TaskManager />
-          </ScrollReveal>
-          
-          <ParallaxSection speed={0.4}>
-            <ScrollReveal direction="up" delay={0.1}>
-              <TechnologiesSection />
-            </ScrollReveal>
-          </ParallaxSection>
-          
-          <ScrollReveal direction="left" delay={0.1}>
-            <ProgressCalculator />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="scale" delay={0.1}>
-            <TestimonialsSection />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="up" delay={0.1}>
-            <CareerTimeline />
-          </ScrollReveal>
-          
-          <ScrollReveal direction="left" delay={0.1}>
-            <BlogSection />
-          </ScrollReveal>
-          
-          <ParallaxSection speed={0.2}>
-            <ScrollReveal direction="right" delay={0.1}>
-              <AboutSection />
-            </ScrollReveal>
-          </ParallaxSection>
-          
-          <ScrollReveal direction="up" delay={0.1}>
-            <Newsletter />
-          </ScrollReveal>
-        </main>
-        <Footer />
-        
-        <QRCodeScanner 
-          isOpen={qrScannerOpen} 
-          onClose={() => setQrScannerOpen(false)} 
-        />
-        
-        <Chatbot 
-          isOpen={chatbotOpen} 
-          onToggle={() => setChatbotOpen(!chatbotOpen)} 
-        />
-        
-        <MusicPlayer />
-        <QuickActions />
+            <ParticleBackground />
+            <StarryBackground />
+            <EnhancedCursor />
+            <EasterEggs />
+            <ReadingProgress />
+            <AchievementPopup />
+            <GestureNavigation />
+            <Header setQrScannerOpen={setQrScannerOpen} />
+            <main className="relative z-10">
+              <HeroSection />
+              
+              <ScrollReveal direction="up" delay={0.1}>
+                <ProgressTracker />
+              </ScrollReveal>
+              
+              <ParallaxSection speed={0.3}>
+                <ScrollReveal direction="scale" delay={0.1}>
+                  <GamificationSection />
+                </ScrollReveal>
+              </ParallaxSection>
+              
+              <ScrollReveal direction="left" delay={0.1}>
+                <CoursesSection />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="up" delay={0.1}>
+                <CourseComparator />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="scale" delay={0.1}>
+                <LiveCodePreview />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="right" delay={0.1}>
+                <TaskManager />
+              </ScrollReveal>
+              
+              <ParallaxSection speed={0.4}>
+                <ScrollReveal direction="up" delay={0.1}>
+                  <TechnologiesSection />
+                </ScrollReveal>
+              </ParallaxSection>
+              
+              <ScrollReveal direction="left" delay={0.1}>
+                <ProgressCalculator />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="scale" delay={0.1}>
+                <TestimonialsSection />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="up" delay={0.1}>
+                <CareerTimeline />
+              </ScrollReveal>
+              
+              <ScrollReveal direction="left" delay={0.1}>
+                <BlogSection />
+              </ScrollReveal>
+              
+              <ParallaxSection speed={0.2}>
+                <ScrollReveal direction="right" delay={0.1}>
+                  <AboutSection />
+                </ScrollReveal>
+              </ParallaxSection>
+              
+              <ScrollReveal direction="up" delay={0.1}>
+                <Newsletter />
+              </ScrollReveal>
+            </main>
+            <Footer />
+            
+            <QRCodeScanner 
+              isOpen={qrScannerOpen} 
+              onClose={() => setQrScannerOpen(false)} 
+            />
+            
+            {/* Chatbot - Bottom Right */}
+            <Chatbot 
+              isOpen={chatbotOpen} 
+              onToggle={() => setChatbotOpen(!chatbotOpen)} 
+            />
+            
+            {/* Quick Actions - Offset from Chatbot */}
+            <QuickActions />
+            
+            {/* Left Side Tools */}
+            <VoiceCommands />
+            <MusicPlayer />
+            <FocusTimer />
+            
+            {/* Right Side Tools */}
+            <SmartRecommendations />
+            <CodeSnippetSaver />
+            <ScreenRecorder />
+            
+            {/* Side Panels */}
+            <AIAssistant />
+            <LiveActivityFeed />
           </div>
         </FocusModeProvider>
       </FavoritesProvider>

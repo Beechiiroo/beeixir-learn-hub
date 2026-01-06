@@ -7,7 +7,6 @@ import TechnologiesSection from "@/components/TechnologiesSection";
 import Footer from "@/components/Footer";
 import RobotVerification from "@/components/RobotVerification";
 import QRCodeScanner from "@/components/QRCodeScanner";
-import Chatbot from "@/components/Chatbot";
 import EnhancedCursor from "@/components/EnhancedCursor";
 import TaskManager from "@/components/TaskManager";
 import ProgressTracker from "@/components/ProgressTracker";
@@ -25,25 +24,51 @@ import ProgressCalculator from "@/components/ProgressCalculator";
 import CareerTimeline from "@/components/CareerTimeline";
 import EasterEggs from "@/components/EasterEggs";
 import { FocusModeProvider } from "@/components/FocusMode";
-import MusicPlayer from "@/components/MusicPlayer";
 import ReadingProgress from "@/components/ReadingProgress";
-import QuickActions from "@/components/QuickActions";
 import AchievementPopup from "@/components/AchievementPopup";
 import { FavoritesProvider } from "@/components/FavoritesSystem";
 import { AccessibilityProvider } from "@/components/AccessibilityMode";
-import VoiceCommands from "@/components/VoiceCommands";
-import AIAssistant from "@/components/AIAssistant";
 import GestureNavigation from "@/components/GestureNavigation";
-import LiveActivityFeed from "@/components/LiveActivityFeed";
-import SmartRecommendations from "@/components/SmartRecommendations";
-import FocusTimer from "@/components/FocusTimer";
-import ScreenRecorder from "@/components/ScreenRecorder";
-import CodeSnippetSaver from "@/components/CodeSnippetSaver";
+
+// Import floating tool panels
+import FloatingToolbar from "@/components/FloatingToolbar";
+import ChatbotPanel from "@/components/panels/ChatbotPanel";
+import QuickActionsPanel from "@/components/panels/QuickActionsPanel";
+import MusicPlayerPanel from "@/components/panels/MusicPlayerPanel";
+import FocusTimerPanel from "@/components/panels/FocusTimerPanel";
+import ScreenRecorderPanel from "@/components/panels/ScreenRecorderPanel";
+import CodeSnippetsPanel from "@/components/panels/CodeSnippetsPanel";
+import RecommendationsPanel from "@/components/panels/RecommendationsPanel";
+import VoiceCommandsPanel from "@/components/panels/VoiceCommandsPanel";
+import AICoachPanel from "@/components/panels/AICoachPanel";
+import ActivityFeedPanel from "@/components/panels/ActivityFeedPanel";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [qrScannerOpen, setQrScannerOpen] = useState(false);
+
+  // Floating tools state
   const [chatbotOpen, setChatbotOpen] = useState(false);
+  const [quickActionsOpen, setQuickActionsOpen] = useState(false);
+  const [musicOpen, setMusicOpen] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [timerOpen, setTimerOpen] = useState(false);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [snippetsOpen, setSnippetsOpen] = useState(false);
+  const [recommendationsOpen, setRecommendationsOpen] = useState(false);
+  const [voiceListening, setVoiceListening] = useState(false);
+  const [aiCoachOpen, setAiCoachOpen] = useState(false);
+  const [activityOpen, setActivityOpen] = useState(false);
+  const [liveCount, setLiveCount] = useState(128);
+
+  // Update live count periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveCount((prev) => prev + Math.floor(Math.random() * 5) - 2);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Check if user has been verified before (using localStorage)
   useEffect(() => {
@@ -143,28 +168,79 @@ const Index = () => {
               onClose={() => setQrScannerOpen(false)} 
             />
             
-            {/* Chatbot - Bottom Right */}
-            <Chatbot 
-              isOpen={chatbotOpen} 
-              onToggle={() => setChatbotOpen(!chatbotOpen)} 
+            {/* Unified Floating Toolbar - 2026 Design */}
+            <FloatingToolbar
+              onChatbotToggle={() => setChatbotOpen(!chatbotOpen)}
+              chatbotOpen={chatbotOpen}
+              onQuickActionsToggle={() => setQuickActionsOpen(!quickActionsOpen)}
+              quickActionsOpen={quickActionsOpen}
+              onMusicToggle={() => setMusicOpen(!musicOpen)}
+              musicOpen={musicOpen}
+              musicPlaying={musicPlaying}
+              onTimerToggle={() => setTimerOpen(!timerOpen)}
+              timerOpen={timerOpen}
+              timerRunning={timerRunning}
+              onRecorderToggle={() => setRecording(!recording)}
+              recording={recording}
+              onSnippetsToggle={() => setSnippetsOpen(!snippetsOpen)}
+              snippetsOpen={snippetsOpen}
+              onRecommendationsToggle={() => setRecommendationsOpen(!recommendationsOpen)}
+              recommendationsOpen={recommendationsOpen}
+              onVoiceToggle={() => setVoiceListening(!voiceListening)}
+              voiceListening={voiceListening}
+              onAICoachToggle={() => setAiCoachOpen(!aiCoachOpen)}
+              aiCoachOpen={aiCoachOpen}
+              onActivityToggle={() => setActivityOpen(!activityOpen)}
+              activityOpen={activityOpen}
+              liveCount={liveCount}
             />
-            
-            {/* Quick Actions - Offset from Chatbot */}
-            <QuickActions />
-            
-            {/* Left Side Tools */}
-            <VoiceCommands />
-            <MusicPlayer />
-            <FocusTimer />
-            
-            {/* Right Side Tools */}
-            <SmartRecommendations />
-            <CodeSnippetSaver />
-            <ScreenRecorder />
-            
-            {/* Side Panels */}
-            <AIAssistant />
-            <LiveActivityFeed />
+
+            {/* Tool Panels */}
+            <ChatbotPanel 
+              isOpen={chatbotOpen} 
+              onClose={() => setChatbotOpen(false)} 
+            />
+            <QuickActionsPanel 
+              isOpen={quickActionsOpen} 
+              onClose={() => setQuickActionsOpen(false)} 
+            />
+            <MusicPlayerPanel 
+              isOpen={musicOpen} 
+              onClose={() => setMusicOpen(false)}
+              isPlaying={musicPlaying}
+              onPlayingChange={setMusicPlaying}
+            />
+            <FocusTimerPanel 
+              isOpen={timerOpen} 
+              onClose={() => setTimerOpen(false)}
+              isRunning={timerRunning}
+              onRunningChange={setTimerRunning}
+            />
+            <ScreenRecorderPanel 
+              isRecording={recording} 
+              onRecordingChange={setRecording}
+            />
+            <CodeSnippetsPanel 
+              isOpen={snippetsOpen} 
+              onClose={() => setSnippetsOpen(false)} 
+            />
+            <RecommendationsPanel 
+              isOpen={recommendationsOpen} 
+              onClose={() => setRecommendationsOpen(false)} 
+            />
+            <VoiceCommandsPanel 
+              isListening={voiceListening} 
+              onListeningChange={setVoiceListening}
+            />
+            <AICoachPanel 
+              isOpen={aiCoachOpen} 
+              onClose={() => setAiCoachOpen(false)} 
+            />
+            <ActivityFeedPanel 
+              isOpen={activityOpen} 
+              onClose={() => setActivityOpen(false)}
+              liveCount={liveCount}
+            />
           </div>
         </FocusModeProvider>
       </FavoritesProvider>

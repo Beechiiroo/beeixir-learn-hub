@@ -42,6 +42,8 @@ import RecommendationsPanel from "@/components/panels/RecommendationsPanel";
 import VoiceCommandsPanel from "@/components/panels/VoiceCommandsPanel";
 import AICoachPanel from "@/components/panels/AICoachPanel";
 import ActivityFeedPanel from "@/components/panels/ActivityFeedPanel";
+import AdvancedStatusBar from "@/components/AdvancedStatusBar";
+import QuickCommandPalette from "@/components/QuickCommandPalette";
 
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
@@ -241,6 +243,10 @@ const Index = () => {
               onClose={() => setActivityOpen(false)}
               liveCount={liveCount}
             />
+            
+            {/* New 2026 Features */}
+            <AdvancedStatusBar />
+            <QuickCommandPalette />
           </div>
         </FocusModeProvider>
       </FavoritesProvider>

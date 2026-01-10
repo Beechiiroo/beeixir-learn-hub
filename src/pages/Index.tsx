@@ -42,6 +42,12 @@ import RecommendationsPanel from "@/components/panels/RecommendationsPanel";
 import VoiceCommandsPanel from "@/components/panels/VoiceCommandsPanel";
 import AICoachPanel from "@/components/panels/AICoachPanel";
 import ActivityFeedPanel from "@/components/panels/ActivityFeedPanel";
+import ARLearningPanel from "@/components/panels/ARLearningPanel";
+import CollaborationPanel from "@/components/panels/CollaborationPanel";
+import ThemeCustomizerPanel from "@/components/panels/ThemeCustomizerPanel";
+import QuantumAIPanel from "@/components/panels/QuantumAIPanel";
+import BiometricsPanel from "@/components/panels/BiometricsPanel";
+import CloudSyncPanel from "@/components/panels/CloudSyncPanel";
 import AdvancedStatusBar from "@/components/AdvancedStatusBar";
 import QuickCommandPalette from "@/components/QuickCommandPalette";
 
@@ -63,6 +69,14 @@ const Index = () => {
   const [aiCoachOpen, setAiCoachOpen] = useState(false);
   const [activityOpen, setActivityOpen] = useState(false);
   const [liveCount, setLiveCount] = useState(128);
+  
+  // New 2026 features state
+  const [arModeActive, setArModeActive] = useState(false);
+  const [collabActive, setCollabActive] = useState(false);
+  const [themesOpen, setThemesOpen] = useState(false);
+  const [quantumOpen, setQuantumOpen] = useState(false);
+  const [biometricsOpen, setBiometricsOpen] = useState(false);
+  const [cloudSyncOpen, setCloudSyncOpen] = useState(false);
 
   // Update live count periodically
   useEffect(() => {
@@ -195,6 +209,18 @@ const Index = () => {
               onActivityToggle={() => setActivityOpen(!activityOpen)}
               activityOpen={activityOpen}
               liveCount={liveCount}
+              onARModeToggle={() => setArModeActive(!arModeActive)}
+              arModeActive={arModeActive}
+              onCollabToggle={() => setCollabActive(!collabActive)}
+              collabActive={collabActive}
+              onThemesToggle={() => setThemesOpen(!themesOpen)}
+              themesOpen={themesOpen}
+              onQuantumToggle={() => setQuantumOpen(!quantumOpen)}
+              quantumActive={quantumOpen}
+              onBiometricsToggle={() => setBiometricsOpen(!biometricsOpen)}
+              biometricsActive={biometricsOpen}
+              onCloudSyncToggle={() => setCloudSyncOpen(!cloudSyncOpen)}
+              cloudSyncActive={cloudSyncOpen}
             />
 
             {/* Tool Panels */}
@@ -244,7 +270,33 @@ const Index = () => {
               liveCount={liveCount}
             />
             
-            {/* New 2026 Features */}
+            {/* New 2026 Features Panels */}
+            <ARLearningPanel 
+              isOpen={arModeActive} 
+              onClose={() => setArModeActive(false)} 
+            />
+            <CollaborationPanel 
+              isOpen={collabActive} 
+              onClose={() => setCollabActive(false)} 
+            />
+            <ThemeCustomizerPanel 
+              isOpen={themesOpen} 
+              onClose={() => setThemesOpen(false)} 
+            />
+            <QuantumAIPanel 
+              isOpen={quantumOpen} 
+              onClose={() => setQuantumOpen(false)} 
+            />
+            <BiometricsPanel 
+              isOpen={biometricsOpen} 
+              onClose={() => setBiometricsOpen(false)} 
+            />
+            <CloudSyncPanel 
+              isOpen={cloudSyncOpen} 
+              onClose={() => setCloudSyncOpen(false)} 
+            />
+            
+            {/* Status Bar & Command Palette */}
             <AdvancedStatusBar />
             <QuickCommandPalette />
           </div>

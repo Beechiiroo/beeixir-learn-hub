@@ -1,11 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { useFuturisticSounds } from "@/hooks/useFuturisticSounds";
 
 const GestureNavigation = () => {
   const [gesture, setGesture] = useState<string | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const { playSound } = useFuturisticSounds();
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
@@ -25,10 +27,12 @@ const GestureNavigation = () => {
         if (Math.abs(deltaX) > minSwipeDistance) {
           if (deltaX > 0) {
             setGesture("right");
+            playSound("holographic-click");
             window.history.back();
             toast.info("← Page précédente");
           } else {
             setGesture("left");
+            playSound("holographic-click");
             window.history.forward();
             toast.info("→ Page suivante");
           }
@@ -37,10 +41,12 @@ const GestureNavigation = () => {
         if (Math.abs(deltaY) > minSwipeDistance) {
           if (deltaY > 0) {
             setGesture("down");
+            playSound("cloud-sync");
             window.scrollTo({ top: 0, behavior: "smooth" });
             toast.info("↑ Haut de page");
           } else {
             setGesture("up");
+            playSound("cloud-sync");
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
             toast.info("↓ Bas de page");
           }
@@ -58,21 +64,25 @@ const GestureNavigation = () => {
           case "ArrowUp":
             e.preventDefault();
             setGesture("up");
+            playSound("cloud-sync");
             window.scrollTo({ top: 0, behavior: "smooth" });
             break;
           case "ArrowDown":
             e.preventDefault();
             setGesture("down");
+            playSound("cloud-sync");
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
             break;
           case "ArrowLeft":
             e.preventDefault();
             setGesture("left");
+            playSound("holographic-click");
             window.history.back();
             break;
           case "ArrowRight":
             e.preventDefault();
             setGesture("right");
+            playSound("holographic-click");
             window.history.forward();
             break;
         }

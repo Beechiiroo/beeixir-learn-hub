@@ -26,6 +26,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useFuturisticSounds, FuturisticSoundType } from "@/hooks/useFuturisticSounds";
 
 interface ToolItem {
   id: string;
@@ -36,6 +37,7 @@ interface ToolItem {
   glowColor: string;
   onClick: () => void;
   isActive?: boolean;
+  soundType: FuturisticSoundType;
 }
 
 interface FloatingToolbarProps {
@@ -115,6 +117,7 @@ const FloatingToolbar = ({
   cloudSyncActive = false,
 }: FloatingToolbarProps) => {
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
+  const { playSound } = useFuturisticSounds();
 
   // Separated floating icons with unique positions
   const floatingIcons: (ToolItem & { position: { right?: string; left?: string; top?: string; bottom?: string } })[] = [
@@ -128,6 +131,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(139, 92, 246, 0.6)",
       onClick: onChatbotToggle,
       isActive: chatbotOpen,
+      soundType: "ai-response",
       position: { right: "20px", top: "15%" },
     },
     {
@@ -139,6 +143,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(245, 158, 11, 0.6)",
       onClick: onQuickActionsToggle,
       isActive: quickActionsOpen,
+      soundType: "holographic-click",
       position: { right: "20px", top: "25%" },
     },
     {
@@ -150,6 +155,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(59, 130, 246, 0.6)",
       onClick: onSnippetsToggle,
       isActive: snippetsOpen,
+      soundType: "code-snippet",
       position: { right: "20px", top: "35%" },
     },
     {
@@ -161,6 +167,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(16, 185, 129, 0.6)",
       onClick: onRecommendationsToggle,
       isActive: recommendationsOpen,
+      soundType: "recommendation",
       position: { right: "20px", top: "45%" },
     },
     {
@@ -172,6 +179,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(244, 63, 94, 0.6)",
       onClick: onRecorderToggle,
       isActive: recording,
+      soundType: "recorder-start",
       position: { right: "20px", top: "55%" },
     },
     // Right side - New 2026 features
@@ -184,6 +192,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(14, 165, 233, 0.6)",
       onClick: onARModeToggle || (() => {}),
       isActive: arModeActive,
+      soundType: "ar-toggle",
       position: { right: "20px", top: "65%" },
     },
     {
@@ -195,6 +204,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(129, 140, 248, 0.6)",
       onClick: onCollabToggle || (() => {}),
       isActive: collabActive,
+      soundType: "collaboration",
       position: { right: "20px", top: "75%" },
     },
     // Left side - Productivity
@@ -207,6 +217,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(139, 92, 246, 0.6)",
       onClick: onVoiceToggle,
       isActive: voiceListening,
+      soundType: "voice-activate",
       position: { left: "20px", top: "20%" },
     },
     {
@@ -218,6 +229,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(236, 72, 153, 0.6)",
       onClick: onMusicToggle,
       isActive: musicOpen || musicPlaying,
+      soundType: "music-start",
       position: { left: "20px", top: "30%" },
     },
     {
@@ -229,6 +241,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(56, 189, 248, 0.6)",
       onClick: onTimerToggle,
       isActive: timerOpen || timerRunning,
+      soundType: "timer-tick",
       position: { left: "20px", top: "40%" },
     },
     {
@@ -240,6 +253,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(236, 72, 153, 0.6)",
       onClick: onThemesToggle || (() => {}),
       isActive: themesOpen,
+      soundType: "theme-switch",
       position: { left: "20px", top: "50%" },
     },
     // Left side - New 2026 features
@@ -252,6 +266,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(139, 92, 246, 0.6)",
       onClick: onQuantumToggle || (() => {}),
       isActive: quantumActive,
+      soundType: "quantum-activate",
       position: { left: "20px", top: "60%" },
     },
     {
@@ -263,6 +278,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(20, 184, 166, 0.6)",
       onClick: onBiometricsToggle || (() => {}),
       isActive: biometricsActive,
+      soundType: "biometric-scan",
       position: { left: "20px", top: "70%" },
     },
     {
@@ -274,6 +290,7 @@ const FloatingToolbar = ({
       glowColor: "rgba(59, 130, 246, 0.6)",
       onClick: onCloudSyncToggle || (() => {}),
       isActive: cloudSyncActive,
+      soundType: "cloud-sync",
       position: { left: "20px", top: "80%" },
     },
   ];
@@ -301,9 +318,15 @@ const FloatingToolbar = ({
               <motion.button
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                onHoverStart={() => setHoveredTool(tool.id)}
+                onHoverStart={() => {
+                  setHoveredTool(tool.id);
+                  playSound("cyber-hover");
+                }}
                 onHoverEnd={() => setHoveredTool(null)}
-                onClick={tool.onClick}
+                onClick={() => {
+                  playSound(tool.soundType);
+                  tool.onClick();
+                }}
                 className="relative"
               >
                 {/* Outer glow ring */}
@@ -412,7 +435,10 @@ const FloatingToolbar = ({
         <motion.button
           whileHover={{ x: -12, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          onClick={onAICoachToggle}
+          onClick={() => {
+            playSound("neural-pulse");
+            onAICoachToggle();
+          }}
           className="relative group overflow-hidden"
         >
           {/* Main container */}
@@ -475,7 +501,10 @@ const FloatingToolbar = ({
         <motion.button
           whileHover={{ x: 12, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          onClick={onActivityToggle}
+          onClick={() => {
+            playSound("success-chime");
+            onActivityToggle();
+          }}
           className="relative group overflow-hidden"
         >
           {/* Main container */}

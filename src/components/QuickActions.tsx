@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useFuturisticSounds } from "@/hooks/useFuturisticSounds";
 
 const QuickActions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { playSound } = useFuturisticSounds();
 
   const actions = [
     { icon: BookOpen, label: "Cours", color: "from-blue-500 to-blue-600", action: () => document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" }) },
@@ -54,6 +56,7 @@ const QuickActions = () => {
                   <Button
                     size="icon"
                     onClick={() => {
+                      playSound("holographic-click");
                       action.action();
                       setIsOpen(false);
                     }}
@@ -72,7 +75,10 @@ const QuickActions = () => {
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Button
           size="icon"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            playSound(isOpen ? "holographic-click" : "quantum-activate");
+            setIsOpen(!isOpen);
+          }}
           className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-secondary shadow-xl hover:shadow-2xl"
         >
           <AnimatePresence mode="wait">

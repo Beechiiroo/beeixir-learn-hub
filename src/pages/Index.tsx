@@ -77,6 +77,7 @@ const Index = () => {
   const [quantumOpen, setQuantumOpen] = useState(false);
   const [biometricsOpen, setBiometricsOpen] = useState(false);
   const [cloudSyncOpen, setCloudSyncOpen] = useState(false);
+  const [focusModeActive, setFocusModeActive] = useState(false);
 
   // Update live count periodically
   useEffect(() => {
@@ -221,6 +222,8 @@ const Index = () => {
               biometricsActive={biometricsOpen}
               onCloudSyncToggle={() => setCloudSyncOpen(!cloudSyncOpen)}
               cloudSyncActive={cloudSyncOpen}
+              onFocusModeToggle={() => setFocusModeActive(!focusModeActive)}
+              focusModeActive={focusModeActive}
             />
 
             {/* Tool Panels */}

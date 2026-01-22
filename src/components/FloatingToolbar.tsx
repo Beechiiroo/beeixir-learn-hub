@@ -119,311 +119,305 @@ const FloatingToolbar = ({
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
   const { playSound } = useFuturisticSounds();
 
-  // Separated floating icons with unique positions
-  const floatingIcons: (ToolItem & { position: { right?: string; left?: string; top?: string; bottom?: string } })[] = [
-    // Right side - Communication
-    {
-      id: "chatbot",
-      icon: MessageCircle,
-      label: "Support IA",
-      description: "Assistant intelligent 24/7",
-      gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
-      glowColor: "rgba(139, 92, 246, 0.6)",
-      onClick: onChatbotToggle,
-      isActive: chatbotOpen,
-      soundType: "ai-response",
-      position: { right: "20px", top: "15%" },
-    },
-    {
-      id: "quickActions",
-      icon: Zap,
-      label: "Actions Rapides",
-      description: "Raccourcis intelligents",
-      gradient: "from-amber-400 via-orange-500 to-red-500",
-      glowColor: "rgba(245, 158, 11, 0.6)",
-      onClick: onQuickActionsToggle,
-      isActive: quickActionsOpen,
-      soundType: "holographic-click",
-      position: { right: "20px", top: "25%" },
-    },
-    {
-      id: "snippets",
-      icon: Code2,
-      label: "Code Snippets",
-      description: "Bibliothèque de code",
-      gradient: "from-cyan-400 via-blue-500 to-indigo-600",
-      glowColor: "rgba(59, 130, 246, 0.6)",
-      onClick: onSnippetsToggle,
-      isActive: snippetsOpen,
-      soundType: "code-snippet",
-      position: { right: "20px", top: "35%" },
-    },
-    {
-      id: "recommendations",
-      icon: Compass,
-      label: "Recommandations",
-      description: "Parcours personnalisé",
-      gradient: "from-emerald-400 via-green-500 to-teal-600",
-      glowColor: "rgba(16, 185, 129, 0.6)",
-      onClick: onRecommendationsToggle,
-      isActive: recommendationsOpen,
-      soundType: "recommendation",
-      position: { right: "20px", top: "45%" },
-    },
-    {
-      id: "recorder",
-      icon: Video,
-      label: "Enregistreur",
-      description: recording ? "En cours..." : "Capturer l'écran",
-      gradient: recording ? "from-red-500 via-rose-500 to-pink-600" : "from-pink-400 via-rose-500 to-red-500",
-      glowColor: "rgba(244, 63, 94, 0.6)",
-      onClick: onRecorderToggle,
-      isActive: recording,
-      soundType: "recorder-start",
-      position: { right: "20px", top: "55%" },
-    },
-    // Right side - New 2026 features
-    {
-      id: "arMode",
-      icon: Glasses,
-      label: "Mode AR/VR",
-      description: "Apprentissage immersif 3D",
-      gradient: "from-cyan-500 via-sky-500 to-blue-600",
-      glowColor: "rgba(14, 165, 233, 0.6)",
-      onClick: onARModeToggle || (() => {}),
-      isActive: arModeActive,
-      soundType: "ar-toggle",
-      position: { right: "20px", top: "65%" },
-    },
-    {
-      id: "collab",
-      icon: Users,
-      label: "Collaboration",
-      description: "Travail d'équipe en temps réel",
-      gradient: "from-indigo-500 via-purple-500 to-pink-500",
-      glowColor: "rgba(129, 140, 248, 0.6)",
-      onClick: onCollabToggle || (() => {}),
-      isActive: collabActive,
-      soundType: "collaboration",
-      position: { right: "20px", top: "75%" },
-    },
-    // Left side - Productivity
+  // Left sidebar icons - well spaced and professional
+  const leftIcons: (ToolItem & { order: number })[] = [
     {
       id: "voice",
       icon: Mic,
       label: "Commandes Vocales",
-      description: voiceListening ? "Écoute active..." : "Contrôle vocal",
-      gradient: voiceListening ? "from-red-500 via-rose-500 to-pink-500" : "from-indigo-400 via-violet-500 to-purple-600",
-      glowColor: "rgba(139, 92, 246, 0.6)",
+      description: voiceListening ? "Écoute active..." : "Contrôle vocal IA",
+      gradient: voiceListening ? "from-red-500 to-rose-600" : "from-violet-500 to-purple-600",
+      glowColor: "rgba(139, 92, 246, 0.5)",
       onClick: onVoiceToggle,
       isActive: voiceListening,
       soundType: "voice-activate",
-      position: { left: "20px", top: "20%" },
+      order: 0,
     },
     {
       id: "music",
       icon: Music,
       label: "Ambiance Sonore",
       description: musicPlaying ? "En lecture" : "Musique focus",
-      gradient: musicPlaying ? "from-green-400 via-emerald-500 to-teal-500" : "from-fuchsia-400 via-pink-500 to-rose-500",
-      glowColor: "rgba(236, 72, 153, 0.6)",
+      gradient: musicPlaying ? "from-green-500 to-emerald-600" : "from-orange-500 to-amber-600",
+      glowColor: "rgba(249, 115, 22, 0.5)",
       onClick: onMusicToggle,
       isActive: musicOpen || musicPlaying,
       soundType: "music-start",
-      position: { left: "20px", top: "30%" },
+      order: 1,
     },
     {
       id: "timer",
       icon: Timer,
       label: "Focus Timer",
-      description: timerRunning ? "Session active" : "Pomodoro",
-      gradient: timerRunning ? "from-rose-500 via-red-500 to-orange-500" : "from-sky-400 via-blue-500 to-indigo-600",
-      glowColor: "rgba(56, 189, 248, 0.6)",
+      description: timerRunning ? "Session active" : "Pomodoro 25min",
+      gradient: timerRunning ? "from-red-500 to-orange-500" : "from-cyan-500 to-blue-600",
+      glowColor: "rgba(6, 182, 212, 0.5)",
       onClick: onTimerToggle,
       isActive: timerOpen || timerRunning,
       soundType: "timer-tick",
-      position: { left: "20px", top: "40%" },
+      order: 2,
     },
-    {
-      id: "themes",
-      icon: Palette,
-      label: "Thèmes",
-      description: "Personnalisation visuelle",
-      gradient: "from-rose-400 via-pink-500 to-purple-600",
-      glowColor: "rgba(236, 72, 153, 0.6)",
-      onClick: onThemesToggle || (() => {}),
-      isActive: themesOpen,
-      soundType: "theme-switch",
-      position: { left: "20px", top: "50%" },
-    },
-    // Left side - New 2026 features
     {
       id: "quantum",
       icon: Atom,
       label: "Quantum AI",
-      description: "Calcul quantique avancé",
-      gradient: "from-violet-500 via-purple-500 to-indigo-600",
-      glowColor: "rgba(139, 92, 246, 0.6)",
+      description: "Intelligence quantique",
+      gradient: "from-pink-500 to-rose-600",
+      glowColor: "rgba(236, 72, 153, 0.5)",
       onClick: onQuantumToggle || (() => {}),
       isActive: quantumActive,
       soundType: "quantum-activate",
-      position: { left: "20px", top: "60%" },
+      order: 3,
     },
     {
       id: "biometrics",
       icon: Fingerprint,
       label: "Biométrie",
-      description: "Auth par empreinte",
-      gradient: "from-emerald-500 via-teal-500 to-cyan-600",
-      glowColor: "rgba(20, 184, 166, 0.6)",
+      description: "Authentification sécurisée",
+      gradient: "from-emerald-500 to-teal-600",
+      glowColor: "rgba(20, 184, 166, 0.5)",
       onClick: onBiometricsToggle || (() => {}),
       isActive: biometricsActive,
       soundType: "biometric-scan",
-      position: { left: "20px", top: "70%" },
+      order: 4,
     },
     {
       id: "cloudSync",
       icon: Cloud,
       label: "Cloud Sync",
-      description: "Synchronisation mondiale",
-      gradient: "from-sky-400 via-blue-500 to-indigo-600",
-      glowColor: "rgba(59, 130, 246, 0.6)",
+      description: "Synchronisation globale",
+      gradient: "from-sky-500 to-indigo-600",
+      glowColor: "rgba(59, 130, 246, 0.5)",
       onClick: onCloudSyncToggle || (() => {}),
       isActive: cloudSyncActive,
       soundType: "cloud-sync",
-      position: { left: "20px", top: "80%" },
+      order: 5,
     },
   ];
 
-  const renderFloatingIcon = (tool: typeof floatingIcons[0], index: number) => {
+  // Right sidebar icons - well spaced and professional
+  const rightIcons: (ToolItem & { order: number })[] = [
+    {
+      id: "chatbot",
+      icon: MessageCircle,
+      label: "Support IA",
+      description: "Assistant intelligent 24/7",
+      gradient: "from-violet-500 to-fuchsia-600",
+      glowColor: "rgba(139, 92, 246, 0.5)",
+      onClick: onChatbotToggle,
+      isActive: chatbotOpen,
+      soundType: "ai-response",
+      order: 0,
+    },
+    {
+      id: "quickActions",
+      icon: Zap,
+      label: "Actions Rapides",
+      description: "Raccourcis intelligents",
+      gradient: "from-amber-500 to-orange-600",
+      glowColor: "rgba(245, 158, 11, 0.5)",
+      onClick: onQuickActionsToggle,
+      isActive: quickActionsOpen,
+      soundType: "holographic-click",
+      order: 1,
+    },
+    {
+      id: "snippets",
+      icon: Code2,
+      label: "Code Snippets",
+      description: "Bibliothèque de code",
+      gradient: "from-cyan-500 to-blue-600",
+      glowColor: "rgba(6, 182, 212, 0.5)",
+      onClick: onSnippetsToggle,
+      isActive: snippetsOpen,
+      soundType: "code-snippet",
+      order: 2,
+    },
+    {
+      id: "recommendations",
+      icon: Compass,
+      label: "Recommandations",
+      description: "Parcours personnalisé",
+      gradient: "from-emerald-500 to-green-600",
+      glowColor: "rgba(16, 185, 129, 0.5)",
+      onClick: onRecommendationsToggle,
+      isActive: recommendationsOpen,
+      soundType: "recommendation",
+      order: 3,
+    },
+    {
+      id: "recorder",
+      icon: Video,
+      label: "Enregistreur",
+      description: recording ? "En cours..." : "Capturer l'écran",
+      gradient: recording ? "from-red-500 to-rose-600" : "from-pink-500 to-rose-600",
+      glowColor: "rgba(244, 63, 94, 0.5)",
+      onClick: onRecorderToggle,
+      isActive: recording,
+      soundType: "recorder-start",
+      order: 4,
+    },
+    {
+      id: "arMode",
+      icon: Glasses,
+      label: "Mode AR/VR",
+      description: "Apprentissage immersif",
+      gradient: "from-indigo-500 to-violet-600",
+      glowColor: "rgba(99, 102, 241, 0.5)",
+      onClick: onARModeToggle || (() => {}),
+      isActive: arModeActive,
+      soundType: "ar-toggle",
+      order: 5,
+    },
+    {
+      id: "collab",
+      icon: Users,
+      label: "Collaboration",
+      description: "Travail d'équipe",
+      gradient: "from-purple-500 to-pink-600",
+      glowColor: "rgba(168, 85, 247, 0.5)",
+      onClick: onCollabToggle || (() => {}),
+      isActive: collabActive,
+      soundType: "collaboration",
+      order: 6,
+    },
+    {
+      id: "themes",
+      icon: Palette,
+      label: "Thèmes",
+      description: "Personnalisation",
+      gradient: "from-rose-500 to-red-600",
+      glowColor: "rgba(244, 63, 94, 0.5)",
+      onClick: onThemesToggle || (() => {}),
+      isActive: themesOpen,
+      soundType: "theme-switch",
+      order: 7,
+    },
+  ];
+
+  const renderIcon = (tool: ToolItem & { order: number }, isLeft: boolean) => {
     const isHovered = hoveredTool === tool.id;
-    const isLeft = tool.position.left !== undefined;
 
     return (
-      <motion.div
-        key={tool.id}
-        initial={{ opacity: 0, scale: 0, x: isLeft ? -50 : 50 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ delay: 0.3 + index * 0.05, type: "spring", stiffness: 300, damping: 20 }}
-        style={{
-          position: "fixed",
-          ...tool.position,
-          zIndex: 50,
-        }}
-        className="group"
-      >
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <motion.button
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                onHoverStart={() => {
-                  setHoveredTool(tool.id);
-                  playSound("cyber-hover");
+      <TooltipProvider key={tool.id} delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <motion.button
+              whileHover={{ scale: 1.15, x: isLeft ? 4 : -4 }}
+              whileTap={{ scale: 0.92 }}
+              onHoverStart={() => {
+                setHoveredTool(tool.id);
+                playSound("cyber-hover");
+              }}
+              onHoverEnd={() => setHoveredTool(null)}
+              onClick={() => {
+                playSound(tool.soundType);
+                tool.onClick();
+              }}
+              className="relative"
+            >
+              {/* Glow effect */}
+              <motion.div
+                className={`absolute inset-0 rounded-xl bg-gradient-to-br ${tool.gradient}`}
+                style={{ filter: "blur(10px)" }}
+                animate={{
+                  opacity: isHovered || tool.isActive ? 0.7 : 0.2,
+                  scale: isHovered ? 1.3 : 1,
                 }}
-                onHoverEnd={() => setHoveredTool(null)}
-                onClick={() => {
-                  playSound(tool.soundType);
-                  tool.onClick();
-                }}
-                className="relative"
+                transition={{ duration: 0.25 }}
+              />
+
+              {/* Pulse rings for active */}
+              <AnimatePresence>
+                {tool.isActive && (
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0.5 }}
+                    animate={{ scale: 1.8, opacity: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-xl border-2 border-white/40"
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Main button */}
+              <div
+                className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${tool.gradient} shadow-xl flex items-center justify-center overflow-hidden border border-white/25`}
               >
-                {/* Outer glow ring */}
+                {/* Glass highlight */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-black/20" />
+
+                {/* Shimmer on hover */}
                 <motion.div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tool.gradient}`}
-                  style={{ filter: `blur(12px)` }}
-                  animate={{
-                    opacity: isHovered || tool.isActive ? 0.8 : 0.3,
-                    scale: isHovered ? 1.4 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: isHovered ? "100%" : "-100%" }}
+                  transition={{ duration: 0.5 }}
                 />
 
-                {/* Pulse rings for active state */}
-                <AnimatePresence>
-                  {tool.isActive && (
-                    <>
-                      <motion.div
-                        initial={{ scale: 1, opacity: 0.6 }}
-                        animate={{ scale: 2, opacity: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className={`absolute inset-0 rounded-2xl border-2 border-white/50`}
-                      />
-                      <motion.div
-                        initial={{ scale: 1, opacity: 0.4 }}
-                        animate={{ scale: 2.5, opacity: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                        className={`absolute inset-0 rounded-2xl border border-white/30`}
-                      />
-                    </>
-                  )}
-                </AnimatePresence>
-
-                {/* Main button with glass effect */}
-                <div
-                  className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.gradient} shadow-2xl flex items-center justify-center overflow-hidden border border-white/20`}
+                {/* Icon */}
+                <motion.div
+                  animate={{
+                    rotate: tool.isActive && tool.id === "music" ? 360 : 0,
+                    scale: isHovered ? 1.1 : 1,
+                  }}
+                  transition={{
+                    rotate: { duration: 3, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 0.2 },
+                  }}
+                  className="relative z-10"
                 >
-                  {/* Glass inner highlight */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-black/20" />
+                  <tool.icon className="w-5 h-5 text-white drop-shadow-md" />
+                </motion.div>
 
-                  {/* Shimmer on hover */}
+                {/* Active indicator */}
+                {tool.isActive && (
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                    initial={{ x: "-100%" }}
-                    animate={{ x: isHovered ? "100%" : "-100%" }}
-                    transition={{ duration: 0.6 }}
-                  />
-
-                  {/* Rotating icon for music */}
-                  <motion.div
-                    animate={{
-                      rotate: tool.isActive && tool.id === "music" ? 360 : 0,
-                      scale: isHovered ? 1.15 : 1,
-                    }}
-                    transition={{
-                      rotate: { duration: 3, repeat: Infinity, ease: "linear" },
-                      scale: { duration: 0.2 },
-                    }}
-                    className="relative z-10"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-white shadow flex items-center justify-center"
                   >
-                    <tool.icon className="w-6 h-6 text-white drop-shadow-lg" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   </motion.div>
-
-                  {/* Active indicator dot */}
-                  {tool.isActive && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white shadow-lg flex items-center justify-center"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-green-500" />
-                    </motion.div>
-                  )}
-                </div>
-              </motion.button>
-            </TooltipTrigger>
-            <TooltipContent
-              side={isLeft ? "right" : "left"}
-              className="bg-background/95 backdrop-blur-xl border-border/50 px-4 py-3 shadow-2xl"
-            >
-              <div className="flex flex-col gap-0.5">
-                <span className="font-bold text-sm text-foreground">{tool.label}</span>
-                <span className="text-xs text-muted-foreground">{tool.description}</span>
+                )}
               </div>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </motion.div>
+            </motion.button>
+          </TooltipTrigger>
+          <TooltipContent
+            side={isLeft ? "right" : "left"}
+            className="bg-background/95 backdrop-blur-xl border-border/50 px-3 py-2 shadow-xl"
+          >
+            <div className="flex flex-col gap-0.5">
+              <span className="font-semibold text-xs text-foreground">{tool.label}</span>
+              <span className="text-[10px] text-muted-foreground">{tool.description}</span>
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     );
   };
 
   return (
     <>
-      {/* Render all floating icons */}
-      {floatingIcons.map((tool, index) => renderFloatingIcon(tool, index))}
+      {/* Left Sidebar - Vertically centered icons */}
+      <motion.div
+        initial={{ x: -60, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
+        className="fixed left-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3"
+      >
+        {leftIcons.map((tool) => renderIcon(tool, true))}
+      </motion.div>
+
+      {/* Right Sidebar - Vertically centered icons */}
+      <motion.div
+        initial={{ x: 60, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3"
+      >
+        {rightIcons.map((tool) => renderIcon(tool, false))}
+      </motion.div>
 
       {/* AI Coach - Premium Side Panel Trigger */}
       <motion.div

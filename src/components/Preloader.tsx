@@ -17,13 +17,13 @@ const Preloader = ({ onLoadingComplete }: PreloaderProps) => {
           clearInterval(interval);
           setTimeout(() => {
             setIsComplete(true);
-            setTimeout(onLoadingComplete, 500);
-          }, 300);
+            setTimeout(onLoadingComplete, 300);
+          }, 200);
           return 100;
         }
-        return prev + Math.random() * 15 + 5;
+        return prev + Math.random() * 25 + 10;
       });
-    }, 100);
+    }, 80);
 
     return () => clearInterval(interval);
   }, [onLoadingComplete]);

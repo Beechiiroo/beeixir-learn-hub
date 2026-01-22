@@ -18,7 +18,8 @@ type FuturisticSoundType =
   | "recommendation"
   | "theme-switch"
   | "success-chime"
-  | "error-glitch";
+  | "error-glitch"
+  | "focus-mode";
 
 export const useFuturisticSounds = () => {
   const audioContext = useRef<AudioContext | null>(null);
@@ -241,6 +242,14 @@ export const useFuturisticSounds = () => {
           createOscillator(ctx, 150, "sawtooth", now, 0.15, 0.04);
           createOscillator(ctx, 120, "sawtooth", now + 0.1, 0.2, 0.04);
           createFilteredNoise(ctx, now, 0.1, 500, 0.03);
+          break;
+
+        case "focus-mode":
+          // Deep focus activation - calming but attention-grabbing
+          createOscillator(ctx, 256, "sine", now, 0.3, 0.05);
+          createOscillator(ctx, 384, "sine", now + 0.1, 0.25, 0.04);
+          createOscillator(ctx, 512, "sine", now + 0.2, 0.2, 0.05);
+          createOscillator(ctx, 768, "triangle", now + 0.3, 0.15, 0.03);
           break;
       }
     } catch (e) {

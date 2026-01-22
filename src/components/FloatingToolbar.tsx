@@ -19,11 +19,12 @@ import {
   Shield,
   Battery,
   Cloud,
-  Rocket,
   Fingerprint,
   Atom,
   Cpu,
   Wand2,
+  Focus,
+  Eye,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFuturisticSounds, FuturisticSoundType } from "@/hooks/useFuturisticSounds";
@@ -77,6 +78,8 @@ interface FloatingToolbarProps {
   biometricsActive?: boolean;
   onCloudSyncToggle?: () => void;
   cloudSyncActive?: boolean;
+  onFocusModeToggle?: () => void;
+  focusModeActive?: boolean;
 }
 
 const FloatingToolbar = ({
@@ -115,6 +118,8 @@ const FloatingToolbar = ({
   biometricsActive = false,
   onCloudSyncToggle,
   cloudSyncActive = false,
+  onFocusModeToggle,
+  focusModeActive = false,
 }: FloatingToolbarProps) => {
   const [hoveredTool, setHoveredTool] = useState<string | null>(null);
   const { playSound } = useFuturisticSounds();
@@ -419,140 +424,214 @@ const FloatingToolbar = ({
         {rightIcons.map((tool) => renderIcon(tool, false))}
       </motion.div>
 
-      {/* AI Coach - Premium Side Panel Trigger */}
+      {/* TOP PREMIUM BAR - AI Coach, Live Activity, Focus Mode */}
       <motion.div
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-        className="fixed right-0 top-[50%] -translate-y-1/2 z-40"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.6, type: "spring" }}
+        className="fixed top-24 left-1/2 -translate-x-1/2 z-50"
       >
-        <motion.button
-          whileHover={{ x: -12, scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => {
-            playSound("neural-pulse");
-            onAICoachToggle();
-          }}
-          className="relative group overflow-hidden"
-        >
-          {/* Main container */}
-          <div className="relative rounded-l-3xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 px-4 py-6 shadow-2xl border-l border-t border-b border-white/20">
-            {/* Animated shimmer */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              animate={{ x: ["-200%", "200%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
+        <div className="flex items-center gap-4 p-2 rounded-2xl bg-background/60 backdrop-blur-2xl border border-white/15 shadow-2xl">
+          {/* AI Learning Coach */}
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    playSound("neural-pulse");
+                    onAICoachToggle();
+                  }}
+                  className="relative group"
+                >
+                  {/* Glow */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600"
+                    style={{ filter: "blur(12px)" }}
+                    animate={{ opacity: aiCoachOpen ? 0.8 : 0.3, scale: aiCoachOpen ? 1.2 : 1 }}
+                  />
+                  
+                  {/* Main button */}
+                  <div className={`relative flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-700 shadow-xl border border-white/25 ${aiCoachOpen ? 'ring-2 ring-white/50' : ''}`}>
+                    {/* Shimmer */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                      animate={{ x: ["-200%", "200%"] }}
+                      transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                    />
+                    
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                      className="relative w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm"
+                    >
+                      <Brain className="w-5 h-5 text-white" />
+                    </motion.div>
+                    <div className="relative flex flex-col items-start">
+                      <span className="text-white font-bold text-sm">AI Learning Coach</span>
+                      <span className="text-white/70 text-xs">Assistant IA Personnel</span>
+                    </div>
+                    <Sparkles className="w-4 h-4 text-yellow-300 ml-1" />
+                  </div>
 
-            {/* Neural pattern background */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute inset-0" style={{
-                backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '8px 8px'
-              }} />
-            </div>
+                  {/* Pulse ring */}
+                  {aiCoachOpen && (
+                    <motion.div
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.5, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="absolute inset-0 rounded-2xl border-2 border-purple-400"
+                    />
+                  )}
+                </motion.button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="bg-background/95 backdrop-blur-xl border-border/50">
+                <span className="font-medium text-xs">Coach IA Personnalisé</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-            {/* Content */}
-            <div className="relative flex flex-col items-center gap-3">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/30"
-              >
-                <Brain className="w-6 h-6 text-white" />
-              </motion.div>
-              <div className="flex flex-col items-center">
-                <span className="text-white font-bold text-sm" style={{ writingMode: 'vertical-rl' }}>AI COACH</span>
-                <Sparkles className="w-4 h-4 text-yellow-300 mt-2" />
-              </div>
-            </div>
+          {/* Separator */}
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
 
-            {/* Active indicator */}
-            {aiCoachOpen && (
-              <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "100%" }}
-                className="absolute left-0 top-0 w-1.5 bg-white rounded-r-full"
-              />
-            )}
-          </div>
+          {/* Live Activity */}
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    playSound("success-chime");
+                    onActivityToggle();
+                  }}
+                  className="relative group"
+                >
+                  {/* Glow */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600"
+                    style={{ filter: "blur(12px)" }}
+                    animate={{ opacity: activityOpen ? 0.8 : 0.3, scale: activityOpen ? 1.2 : 1 }}
+                  />
+                  
+                  {/* Main button */}
+                  <div className={`relative flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 shadow-xl border border-white/25 ${activityOpen ? 'ring-2 ring-white/50' : ''}`}>
+                    {/* Pulse animation */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl bg-white/10"
+                      animate={{ opacity: [0, 0.3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                    
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="relative w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm"
+                    >
+                      <Activity className="w-5 h-5 text-white" />
+                    </motion.div>
+                    <div className="relative flex flex-col items-start">
+                      <div className="flex items-center gap-2">
+                        <span className="text-white font-bold text-sm">Activité Live</span>
+                        <motion.div
+                          animate={{ opacity: [1, 0.3, 1], scale: [1, 0.8, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                          className="w-2 h-2 rounded-full bg-red-400"
+                        />
+                      </div>
+                      <span className="text-white/70 text-xs">{liveCount} utilisateurs actifs</span>
+                    </div>
+                  </div>
 
-          {/* Glow effect */}
-          <motion.div
-            className="absolute inset-0 rounded-l-3xl bg-gradient-to-br from-violet-500 to-purple-500 blur-2xl opacity-0 -z-10"
-            whileHover={{ opacity: 0.7, scale: 1.3 }}
-          />
-        </motion.button>
-      </motion.div>
+                  {/* Pulse ring */}
+                  {activityOpen && (
+                    <motion.div
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.5, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+                    />
+                  )}
+                </motion.button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="bg-background/95 backdrop-blur-xl border-border/50">
+                <span className="font-medium text-xs">Voir l'activité en temps réel</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-      {/* Live Activity Counter - Left Side */}
-      <motion.div
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.5 }}
-        className="fixed left-0 top-[50%] -translate-y-1/2 z-40"
-      >
-        <motion.button
-          whileHover={{ x: 12, scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => {
-            playSound("success-chime");
-            onActivityToggle();
-          }}
-          className="relative group overflow-hidden"
-        >
-          {/* Main container */}
-          <div className="relative rounded-r-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 px-4 py-6 shadow-2xl border-r border-t border-b border-white/20">
-            {/* Pulse animation */}
-            <motion.div
-              className="absolute inset-0 bg-white/10"
-              animate={{ opacity: [0, 0.2, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+          {/* Separator */}
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
 
-            {/* Content */}
-            <div className="relative flex flex-col items-center gap-2">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/30"
-              >
-                <Activity className="w-6 h-6 text-white" />
-              </motion.div>
-              <span className="text-white font-bold text-xl">{liveCount}</span>
-              <div className="flex items-center gap-1.5">
-                <motion.div
-                  animate={{ opacity: [1, 0.3, 1], scale: [1, 0.8, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="w-2.5 h-2.5 rounded-full bg-red-400"
-                />
-                <span className="text-white/90 text-xs font-medium">LIVE</span>
-              </div>
-            </div>
+          {/* Focus Mode */}
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    playSound("focus-mode");
+                    onFocusModeToggle?.();
+                  }}
+                  className="relative group"
+                >
+                  {/* Glow */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600"
+                    style={{ filter: "blur(12px)" }}
+                    animate={{ opacity: focusModeActive ? 0.8 : 0.3, scale: focusModeActive ? 1.2 : 1 }}
+                  />
+                  
+                  {/* Main button */}
+                  <div className={`relative flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 shadow-xl border border-white/25 ${focusModeActive ? 'ring-2 ring-white/50' : ''}`}>
+                    {/* Shimmer */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      initial={{ x: "-200%" }}
+                      animate={{ x: focusModeActive ? "200%" : "-200%" }}
+                      transition={{ duration: 1.5, repeat: focusModeActive ? Infinity : 0 }}
+                    />
+                    
+                    <motion.div
+                      animate={{ scale: focusModeActive ? [1, 1.15, 1] : 1 }}
+                      transition={{ duration: 1.5, repeat: focusModeActive ? Infinity : 0 }}
+                      className="relative w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm"
+                    >
+                      <Eye className="w-5 h-5 text-white" />
+                    </motion.div>
+                    <div className="relative flex flex-col items-start">
+                      <span className="text-white font-bold text-sm">Mode Focus</span>
+                      <span className="text-white/70 text-xs">{focusModeActive ? 'Activé' : 'Concentration max'}</span>
+                    </div>
+                    <Focus className="w-4 h-4 text-yellow-200 ml-1" />
+                  </div>
 
-            {/* Active indicator */}
-            {activityOpen && (
-              <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "100%" }}
-                className="absolute right-0 top-0 w-1.5 bg-white rounded-l-full"
-              />
-            )}
-          </div>
-
-          {/* Glow effect */}
-          <motion.div
-            className="absolute inset-0 rounded-r-3xl bg-gradient-to-br from-emerald-500 to-teal-500 blur-2xl opacity-0 -z-10"
-            whileHover={{ opacity: 0.7, scale: 1.3 }}
-          />
-        </motion.button>
+                  {/* Pulse ring */}
+                  {focusModeActive && (
+                    <motion.div
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.5, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="absolute inset-0 rounded-2xl border-2 border-amber-400"
+                    />
+                  )}
+                </motion.button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="bg-background/95 backdrop-blur-xl border-border/50">
+                <span className="font-medium text-xs">Activer le mode concentration</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </motion.div>
 
       {/* Bottom Status Bar - Futuristic 2026 */}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.5 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
         className="fixed left-1/2 -translate-x-1/2 bottom-4 z-40"
       >
         <div className="flex items-center gap-4 bg-background/80 backdrop-blur-2xl rounded-full px-6 py-3 border border-white/10 shadow-2xl">
